@@ -35,7 +35,7 @@ class AppDimensions {
 
   // Component Sizes
   static const int inputHeight = 44;
-  static const int buttonHeight = 44;
+  static const int buttonHeight = 50;
   static const int headerHeight = 56;
   static const int footerHeight = 60;
   static const int sidebarWidth = 280;
