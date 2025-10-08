@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_constants.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
 import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
+import 'package:smart_digital_wallet/src/core/common/routes/app_route_names.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/svg_image.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_3xl.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_md.dart';
@@ -58,7 +60,9 @@ class StarterView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        context.push(signInRoute);
+                      },
                       child: TextWidgetMd(
                         text: 'Get Started',
                         textColor: textButtonColor,
@@ -66,8 +70,12 @@ class StarterView extends StatelessWidget {
                     ),
                     SizedBox(height: AppDimensions.spacingLg.height(context)),
                     TextWidgetMd(
-                      text: 'Create an account',
+                      text: 'Don\'t have an account?',
                       textColor: textButtonColor.withValues(alpha: 0.8),
+                    ),
+                    TextWidgetMd(
+                      text: 'Contact Us',
+                      textColor: primaryColor.withValues(alpha: 0.9),
                     ),
                     SizedBox(height: AppDimensions.spacingLg.height(context)),
                   ],

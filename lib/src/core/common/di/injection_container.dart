@@ -5,6 +5,7 @@ import 'package:smart_digital_wallet/src/core/features/auth/data/data_sources/au
 import 'package:smart_digital_wallet/src/core/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/data/repository/auth_repo_imp.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/domain/repository/auth_repository.dart';
+import 'package:smart_digital_wallet/src/core/features/auth/presentation/bloc/bloc/auth_bloc.dart';
 
 final sl = GetIt.instance;
 void init() {
@@ -16,6 +17,7 @@ void init() {
     ..registerLazySingleton<SecureStorageService>(
       () => SecureStorageService(storage: sl()),
     )
+    ..registerLazySingleton<AuthBloc>(() => AuthBloc())
     // local data sources
     ..registerLazySingleton<AuthLocalDataSourse>(
       () => AuthLocalDataSourseImp(secureStorageService: sl()),

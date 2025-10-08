@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
 
 class SvgImage extends StatelessWidget {
   final String path;
@@ -17,6 +18,10 @@ class SvgImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(path, fit: fit ?? BoxFit.cover);
+    return SizedBox(
+      height: height?.height(context),
+      width: width?.width(context),
+      child: SvgPicture.asset(path, fit: fit ?? BoxFit.cover),
+    );
   }
 }
