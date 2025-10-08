@@ -17,6 +17,7 @@ void init() {
     ..registerLazySingleton<SecureStorageService>(
       () => SecureStorageService(storage: sl()),
     )
+    // blocs
     ..registerLazySingleton<AuthBloc>(() => AuthBloc())
     // local data sources
     ..registerLazySingleton<AuthLocalDataSourse>(
