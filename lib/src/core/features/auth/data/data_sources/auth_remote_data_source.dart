@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_constants.dart';
+import 'package:smart_digital_wallet/src/core/common/helper/token_generator.dart';
 import 'package:smart_digital_wallet/src/core/common/result/exceptions.dart'
     show AuthException;
 import 'package:smart_digital_wallet/src/core/common/services/api_client_service.dart';
@@ -22,11 +25,13 @@ class AuthRemoteDataSourceImp extends AuthRemoteDataSource {
         'email': email,
         'password': password,
       });
-      if (email == email && password == password)
-        return "jwt_token";
-      else {
+      if (email == testEmail && password == testPassword) {
+        return generateToken();
+      } else {
         throw AuthException(message: "Invalid email or password");
       }
+    } on AuthException {
+      rethrow;
     } catch (e) {
       throw AuthException(message: e.toString());
     }

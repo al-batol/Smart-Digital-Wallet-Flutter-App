@@ -10,7 +10,8 @@ import 'package:smart_digital_wallet/src/core/features/auth/presentation/bloc/bl
 import 'package:smart_digital_wallet/src/core/features/auth/presentation/widgets/signin/title_subtitle.dart';
 
 class PasswordFormField extends StatelessWidget {
-  const PasswordFormField({super.key});
+  final TextEditingController passwordController;
+  const PasswordFormField({super.key, required this.passwordController});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class PasswordFormField extends StatelessWidget {
               previous.isPasswordVisible != current.isPasswordVisible,
           builder: (context, state) {
             return TextFormField(
+              controller: passwordController,
               obscureText: !state.isPasswordVisible,
               decoration: InputDecoration(
                 hintText: 'At least 8 characters',

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:smart_digital_wallet/src/core/common/result/exceptions.dart';
 import 'package:smart_digital_wallet/src/core/common/result/failure.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/data/data_sources/auth_remote_data_source.dart';
@@ -25,8 +26,8 @@ class AuthRepoImp extends AuthRepository {
       );
       await authLocalDataSourse.saveToken(token);
       return Right(token);
-    } catch (e) {
-      return left(AuthFailure(message: e.toString()));
+    } on AuthException catch (e) {
+      return left(AuthFailure(message: e.message));
     }
   }
 

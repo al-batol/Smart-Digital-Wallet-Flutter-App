@@ -6,7 +6,8 @@ import 'package:smart_digital_wallet/src/core/common/helper/regx.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/presentation/widgets/signin/title_subtitle.dart';
 
 class EmailFormField extends StatelessWidget {
-  const EmailFormField({super.key});
+  final TextEditingController emailController;
+  const EmailFormField({super.key, required this.emailController});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class EmailFormField extends StatelessWidget {
       children: [
         const TitleSubtitle(title: 'Enter Your Email', subtitle: 'Email'),
         TextFormField(
+          controller: emailController,
           decoration: InputDecoration(
             hintText: 'example@domain.com',
             hintStyle: TextStyle(color: hintTextFieldColor),

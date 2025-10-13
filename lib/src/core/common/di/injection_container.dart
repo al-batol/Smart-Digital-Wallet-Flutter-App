@@ -1,10 +1,12 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:smart_digital_wallet/src/core/common/services/api_client_service.dart';
 import 'package:smart_digital_wallet/src/core/common/services/secure_storage_service.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/data/repository/auth_repo_imp.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/domain/repository/auth_repository.dart';
+import 'package:smart_digital_wallet/src/core/features/auth/domain/usecases/signin_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/presentation/bloc/bloc/auth_bloc.dart';
 
 final sl = GetIt.instance;
@@ -17,8 +19,9 @@ void init() {
     ..registerLazySingleton<SecureStorageService>(
       () => SecureStorageService(storage: sl()),
     )
+    ..registerLazySingleton<ApiClientService>(() => ApiClientService())
     // blocs
-    ..registerLazySingleton<AuthBloc>(() => AuthBloc())
+    ..registerFactory<AuthBloc>(() => AuthBloc(signInUsecase: sl()))
     // local data sources
     ..registerLazySingleton<AuthLocalDataSourse>(
       () => AuthLocalDataSourseImp(secureStorageService: sl()),
@@ -30,5 +33,9 @@ void init() {
     // repositories
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepoImp(authRemoteDataSource: sl(), authLocalDataSourse: sl()),
+    )
+    // usecases
+    ..registerLazySingleton<SignInUsecase>(
+      () => SignInUsecase(authRepository: sl()),
     );
 }

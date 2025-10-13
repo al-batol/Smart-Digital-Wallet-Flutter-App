@@ -1,5 +1,5 @@
-const String email = 'fake_email@gmail.com';
-const String password = 'fake_password3#123';
+const String testEmail = 'fake_email@gmail.com';
+const String testPassword = 'fake_password3#123M';
 
 const String tokenKey = 'token';
 
@@ -10,3 +10,4 @@ const String securityImg = "assets/icons/security.svg";
 const String eyeOffImg = "assets/icons/eye_off.svg";
 const String eyeOnImg = "assets/icons/eye_on.svg";
 const String shadowCircleImg = "assets/icons/shadow_circle.svg";
+const String loadingGif = "assets/gifs/loading.gif";
