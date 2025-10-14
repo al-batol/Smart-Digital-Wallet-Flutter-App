@@ -8,6 +8,12 @@ import 'package:smart_digital_wallet/src/core/features/auth/data/repository/auth
 import 'package:smart_digital_wallet/src/core/features/auth/domain/repository/auth_repository.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/domain/usecases/signin_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/presentation/bloc/bloc/auth_bloc.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/data/data_sources/dashboard_remote_data_scource.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/data/repository/dashbaord_repo_imp.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/domain/repository/dashbaord_repository.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/currency_exchange_usecase.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/get_accounts_usecase.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/send_money_usecase.dart';
 
 final sl = GetIt.instance;
 void init() {
@@ -30,12 +36,27 @@ void init() {
     ..registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImp(apiClientService: sl()),
     )
+    ..registerLazySingleton<DashboardRemoteDataScource>(
+      () => DashboardRemoteDataScourceImp(apiClientService: sl()),
+    )
     // repositories
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepoImp(authRemoteDataSource: sl(), authLocalDataSourse: sl()),
     )
+    ..registerLazySingleton<DashbaordRepository>(
+      () => DashbaordRepoImp(dashbaordRemoteDataSource: sl()),
+    )
     // usecases
     ..registerLazySingleton<SignInUsecase>(
       () => SignInUsecase(authRepository: sl()),
+    )
+    ..registerLazySingleton<GetAccountsUsecase>(
+      () => GetAccountsUsecase(dashbaordRepository: sl()),
+    )
+    ..registerLazySingleton<SendMoneyUsecase>(
+      () => SendMoneyUsecase(dashbaordRepository: sl()),
+    )
+    ..registerLazySingleton<CurrencyExchangeUsecase>(
+      () => CurrencyExchangeUsecase(dashbaordRepository: sl()),
     );
 }

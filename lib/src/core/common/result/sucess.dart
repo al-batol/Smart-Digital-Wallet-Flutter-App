@@ -8,3 +8,7 @@ abstract class Success extends Equatable {
   @override
   List<Object?> get props => [message];
 }
+
+class DashboardSuccess extends Success {
+  const DashboardSuccess({required super.message});
+}
