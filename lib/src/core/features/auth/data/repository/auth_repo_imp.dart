@@ -6,7 +6,7 @@ import 'package:smart_digital_wallet/src/core/features/auth/data/data_sources/au
 import 'package:smart_digital_wallet/src/core/features/auth/domain/repository/auth_repository.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/typedef.dart';
 
-class AuthRepoImp extends AuthRepository {
+class AuthRepoImp implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;
   final AuthLocalDataSourse authLocalDataSourse;
   AuthRepoImp({
