@@ -14,6 +14,7 @@ import 'package:smart_digital_wallet/src/core/features/dashboard/domain/reposito
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/currency_exchange_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/get_accounts_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/send_money_usecase.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/presentation/blocs/bloc/dashboard_bloc.dart';
 
 final sl = GetIt.instance;
 void init() {
@@ -28,6 +29,9 @@ void init() {
     ..registerLazySingleton<ApiClientService>(() => ApiClientService())
     // blocs
     ..registerFactory<AuthBloc>(() => AuthBloc(signInUsecase: sl()))
+    ..registerFactory<DashboardBloc>(
+      () => DashboardBloc(getAccountsUsecase: sl()),
+    )
     // local data sources
     ..registerLazySingleton<AuthLocalDataSourse>(
       () => AuthLocalDataSourseImp(secureStorageService: sl()),

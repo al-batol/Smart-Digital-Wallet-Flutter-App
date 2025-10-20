@@ -5,7 +5,13 @@ import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions
 class TextWidgetMd extends StatelessWidget {
   final String text;
   final Color? textColor;
-  const TextWidgetMd({super.key, required this.text, this.textColor});
+  final FontWeight? fontWeight;
+  const TextWidgetMd({
+    super.key,
+    required this.text,
+    this.textColor,
+    this.fontWeight,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +20,7 @@ class TextWidgetMd extends StatelessWidget {
       style: TextStyle(
         fontSize: AppDimensions.fontMd.fontSize(context),
         color: textColor,
+        fontWeight: fontWeight,
       ),
     );
   }

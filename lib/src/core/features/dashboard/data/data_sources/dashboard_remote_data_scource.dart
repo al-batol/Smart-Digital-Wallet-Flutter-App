@@ -4,10 +4,10 @@ import 'package:smart_digital_wallet/src/core/common/mocked_data/accounts_mock.d
     show accountsMock;
 import 'package:smart_digital_wallet/src/core/common/result/exceptions.dart';
 import 'package:smart_digital_wallet/src/core/common/services/api_client_service.dart';
-import 'package:smart_digital_wallet/src/core/features/dashboard/data/models/account_model.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/data/models/accounts_model.dart';
 
 abstract class DashboardRemoteDataScource {
-  Future<List<AccountModel>> getAccounts();
+  Future<AccountsModel> getAccounts();
   Future<Unit> sendMoney({required String receiverId, required double amount});
   Future<Unit> currencyExchange({
     required AccountCurrency fromCurrency,
@@ -40,12 +40,10 @@ class DashboardRemoteDataScourceImp implements DashboardRemoteDataScource {
   }
 
   @override
-  Future<List<AccountModel>> getAccounts() async {
+  Future<AccountsModel> getAccounts() async {
     try {
-      final accounts = await apiClientService.get(
-        'https://api.com/dashboard/accounts',
-      );
-      return accountsMock.map((e) => AccountModel.fromJson(e)).toList();
+      await apiClientService.get('https://api.com/dashboard/accounts');
+      return AccountsModel.fromJson(accountsMock);
     } catch (e) {
       throw DashboardException(message: e.toString());
     }

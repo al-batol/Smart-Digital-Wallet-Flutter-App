@@ -1,5 +1,16 @@
-const List<Map<String, dynamic>> accountsMock = [
-  {'id': '3', 'type': 'loyalty_points', 'currency': 'YER', 'balance': 300000},
-  {'id': '2', 'type': 'savings', 'currency': 'SAR', 'balance': 2000},
-  {'id': '1', 'type': 'wallet', 'currency': 'USD', 'balance': 1000},
-];
+const Map<String, dynamic> accountsMock = {
+  "id": "u1",
+  "accounts": [
+    {
+      "id": "1782,6897,6578,3564",
+      "type": "wallet",
+      "currencies": {"USD": 100, "YER": 25000},
+    },
+    {
+      "id": "6715,8172,9128,7162",
+      "type": "savings",
+      "currencies": {"USD": 500, "SAR": 800},
+    },
+  ],
+  "loyalty_points": 2000,
+};

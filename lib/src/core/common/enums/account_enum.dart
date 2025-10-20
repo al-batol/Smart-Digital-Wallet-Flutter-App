@@ -1,7 +1,7 @@
 enum AccountType {
   wallet('wallet'),
   savings('savings'),
-  loyalty('loyalty_points');
+  loyaltyPoints('loyaltyPoints_points');
 
   final String type;
   const AccountType(this.type);
@@ -12,8 +12,8 @@ enum AccountType {
         return AccountType.wallet;
       case 'savings':
         return AccountType.savings;
-      case 'loyalty_points':
-        return AccountType.loyalty;
+      case 'loyaltyPoints_points':
+        return AccountType.loyaltyPoints;
       default:
         throw ArgumentError('Unexpected Account Type');
     }
@@ -21,12 +21,13 @@ enum AccountType {
 }
 
 enum AccountCurrency {
-  yer('YER'),
-  sar('SAR'),
-  usd('USD');
+  yer('YER', 'ر.ي'),
+  sar('SAR', 'ر.س'),
+  usd('USD', '\$');
 
   final String currency;
-  const AccountCurrency(this.currency);
+  final String symbol;
+  const AccountCurrency(this.currency, this.symbol);
 
   factory AccountCurrency.fromName(String name) {
     switch (name) {

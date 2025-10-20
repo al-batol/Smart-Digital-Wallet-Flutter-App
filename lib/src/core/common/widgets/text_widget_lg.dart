@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
 import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
 
-class TextWidgetSm extends StatelessWidget {
+class TextWidgetLg extends StatelessWidget {
   final String text;
   final Color? textColor;
   final FontWeight? fontWeight;
-  const TextWidgetSm({
+  const TextWidgetLg({
     super.key,
     required this.text,
     this.textColor,
@@ -18,7 +18,7 @@ class TextWidgetSm extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: AppDimensions.fontSm.fontSize(context),
+        fontSize: AppDimensions.fontLg.fontSize(context),
         color: textColor,
         fontWeight: fontWeight,
       ),

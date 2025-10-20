@@ -1,5 +1,5 @@
 import 'package:smart_digital_wallet/src/core/common/helper/typedef.dart';
-import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/account_entity.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/accounts_entity.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/repository/dashbaord_repository.dart';
 
 class GetAccountsUsecase {
@@ -7,7 +7,7 @@ class GetAccountsUsecase {
 
   GetAccountsUsecase({required this.dashbaordRepository});
 
-  Future<Result<List<AccountEntity>>> call() async {
+  Future<Result<AccountsEntity>> call() async {
     return await dashbaordRepository.getAccounts();
   }
 }

@@ -5,8 +5,7 @@ import 'package:smart_digital_wallet/src/core/common/result/exceptions.dart';
 import 'package:smart_digital_wallet/src/core/common/result/failure.dart';
 import 'package:smart_digital_wallet/src/core/common/result/sucess.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/data/data_sources/dashboard_remote_data_scource.dart';
-import 'package:smart_digital_wallet/src/core/features/dashboard/data/models/account_model.dart';
-import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/account_entity.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/accounts_entity.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/repository/dashbaord_repository.dart';
 
 class DashbaordRepoImp implements DashbaordRepository {
@@ -15,14 +14,11 @@ class DashbaordRepoImp implements DashbaordRepository {
   DashbaordRepoImp({required this.dashbaordRemoteDataSource});
 
   @override
-  ResultFuture<List<AccountEntity>> getAccounts() async {
+  ResultFuture<AccountsEntity> getAccounts() async {
     try {
-      final List<AccountModel> models = await dashbaordRemoteDataSource
-          .getAccounts();
-      final List<AccountEntity> entities = models
-          .map((e) => e.toEntity())
-          .toList();
-      return right(entities);
+      final model = await dashbaordRemoteDataSource.getAccounts();
+      final entity = model.toEntity();
+      return right(entity);
     } on DashboardException catch (e) {
       return left(DashboardFailure(message: e.message));
     }

@@ -1,9 +1,9 @@
 import 'package:smart_digital_wallet/src/core/common/enums/account_enum.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/typedef.dart';
-import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/account_entity.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/accounts_entity.dart';
 
 abstract class DashbaordRepository {
-  ResultFuture<List<AccountEntity>> getAccounts();
+  ResultFuture<AccountsEntity> getAccounts();
   ResultVoidWithMessage sendMoney({
     required String receiverId,
     required double amount,
