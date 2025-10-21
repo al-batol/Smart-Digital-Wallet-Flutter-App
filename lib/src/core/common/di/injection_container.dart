@@ -15,6 +15,12 @@ import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/get_accounts_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/send_money_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/presentation/blocs/bloc/dashboard_bloc.dart';
+import 'package:smart_digital_wallet/src/core/features/top_up/data/data_sources/top_up_local_data_source.dart';
+import 'package:smart_digital_wallet/src/core/features/top_up/data/data_sources/top_up_remote_data_source.dart';
+import 'package:smart_digital_wallet/src/core/features/top_up/data/repository/top_up_repo_imp.dart';
+import 'package:smart_digital_wallet/src/core/features/top_up/domain/repository/top_up_repository.dart';
+import 'package:smart_digital_wallet/src/core/features/top_up/domain/usecases/top_up_usecase.dart';
+import 'package:smart_digital_wallet/src/core/features/top_up/presentation/blocs/bloc/top_up_bloc.dart';
 
 final sl = GetIt.instance;
 void init() {
@@ -32,9 +38,13 @@ void init() {
     ..registerFactory<DashboardBloc>(
       () => DashboardBloc(getAccountsUsecase: sl()),
     )
+    ..registerFactory<TopUpBloc>(() => TopUpBloc(topUpUsecase: sl()))
     // local data sources
     ..registerLazySingleton<AuthLocalDataSourse>(
       () => AuthLocalDataSourseImp(secureStorageService: sl()),
+    )
+    ..registerLazySingleton<TopUpLocalDataSource>(
+      () => TopUpLocalDataSourceImp(),
     )
     // remote data sources
     ..registerLazySingleton<AuthRemoteDataSource>(
@@ -43,12 +53,19 @@ void init() {
     ..registerLazySingleton<DashboardRemoteDataScource>(
       () => DashboardRemoteDataScourceImp(apiClientService: sl()),
     )
+    ..registerLazySingleton<TopUpRemoteDataSource>(
+      () => TopUpRemoteDataSourceImp(apiClientService: sl()),
+    )
     // repositories
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepoImp(authRemoteDataSource: sl(), authLocalDataSourse: sl()),
     )
     ..registerLazySingleton<DashbaordRepository>(
       () => DashbaordRepoImp(dashbaordRemoteDataSource: sl()),
+    )
+    ..registerLazySingleton<TopUpRepository>(
+      () =>
+          TopUpRepoImp(topUpRemoteDataSource: sl(), topUpLocalDataSource: sl()),
     )
     // usecases
     ..registerLazySingleton<SignInUsecase>(
@@ -62,5 +79,8 @@ void init() {
     )
     ..registerLazySingleton<CurrencyExchangeUsecase>(
       () => CurrencyExchangeUsecase(dashbaordRepository: sl()),
+    )
+    ..registerLazySingleton<TopUpUsecase>(
+      () => TopUpUsecase(topUpRepository: sl()),
     );
 }

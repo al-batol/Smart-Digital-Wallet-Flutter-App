@@ -16,3 +16,7 @@ class AuthException extends AppException {
 class DashboardException extends AppException {
   const DashboardException({required super.message});
 }
+
+class TopUpException extends AppException {
+  const TopUpException({required super.message});
+}

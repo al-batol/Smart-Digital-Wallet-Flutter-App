@@ -12,3 +12,7 @@ abstract class Success extends Equatable {
 class DashboardSuccess extends Success {
   const DashboardSuccess({required super.message});
 }
+
+class TopUpSuccess extends Success {
+  const TopUpSuccess({required super.message});
+}

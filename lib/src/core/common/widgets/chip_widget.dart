@@ -4,11 +4,11 @@ import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.da
 import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_sm.dart';
 
-class CurrencyChipWidget extends StatelessWidget {
+class ChipWidget extends StatelessWidget {
   final String currency;
   final bool isSelected;
   final VoidCallback onTap;
-  const CurrencyChipWidget({
+  const ChipWidget({
     super.key,
     required this.currency,
     this.isSelected = false,

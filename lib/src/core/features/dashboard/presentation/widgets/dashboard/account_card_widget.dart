@@ -10,12 +10,13 @@ import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_lg.dart
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_md.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_xl.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/account_entity.dart';
+import 'package:smart_digital_wallet/src/core/common/widgets/chip_widget.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/presentation/blocs/bloc/dashboard_bloc.dart';
-import 'package:smart_digital_wallet/src/core/features/dashboard/presentation/widgets/dashboard/currency_chip_widget.dart';
 
 class AccountCardWidget extends StatelessWidget {
   final AccountEntity account;
   final double height;
+
   const AccountCardWidget({
     super.key,
     required this.account,
@@ -85,7 +86,7 @@ class AccountCardWidget extends StatelessWidget {
                                           previous.selectedCurrencyIndex !=
                                           current.selectedCurrencyIndex,
                                       builder: (context, state) {
-                                        return CurrencyChipWidget(
+                                        return ChipWidget(
                                           onTap: () {
                                             context.read<DashboardBloc>().add(
                                               ToggleSelectedCurrencyEvent(

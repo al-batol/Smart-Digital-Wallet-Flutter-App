@@ -16,3 +16,7 @@ class AuthFailure extends Failure {
 class DashboardFailure extends Failure {
   const DashboardFailure({required super.message});
 }
+
+class TopUpFailure extends Failure {
+  const TopUpFailure({required super.message});
+}
