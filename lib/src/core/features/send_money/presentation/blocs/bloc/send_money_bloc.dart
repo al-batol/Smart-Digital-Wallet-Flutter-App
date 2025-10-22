@@ -88,7 +88,7 @@ class SendMoneyBloc extends Bloc<SendMoneyEvent, SendMoneyState> {
 
     final transfer = TransferEntity(
       recipientAccountId: event.recipientAccountId,
-      sourceAccountId: event.sourceAccountId,
+      accountId: event.sourceAccountId,
       currency: event.currency,
       amount: event.amount,
     );

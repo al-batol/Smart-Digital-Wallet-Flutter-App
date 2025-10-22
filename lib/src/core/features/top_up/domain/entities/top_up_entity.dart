@@ -1,16 +1,12 @@
-import 'package:equatable/equatable.dart';
+import 'package:smart_digital_wallet/src/core/common/models/transaction_model.dart';
+import 'package:hive/hive.dart';
+part 'top_up_entity.g.dart';
 
-class TopUpEntity extends Equatable {
-  final double amount;
-  final String currency;
-  final String accountId;
-
+@HiveType(typeId: 1)
+class TopUpEntity extends TransactionModel {
   const TopUpEntity({
-    required this.amount,
-    required this.currency,
-    required this.accountId,
+    required super.amount,
+    required super.currency,
+    required super.accountId,
   });
-
-  @override
-  List<Object?> get props => [amount, currency, accountId];
 }

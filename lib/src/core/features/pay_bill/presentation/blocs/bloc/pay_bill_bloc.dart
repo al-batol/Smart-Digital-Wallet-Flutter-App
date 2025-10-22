@@ -30,9 +30,9 @@ class PayBillBloc extends Bloc<PayBillEvent, PayBillState> {
     emit(state.copyWith(isLoading: true, errorMessage: ''));
 
     final payment = PaymentEntity(
-      billId: event.billId,
       billType: event.billType,
       amount: event.amount,
+      currency: event.currency,
       accountId: event.accountId,
     );
 

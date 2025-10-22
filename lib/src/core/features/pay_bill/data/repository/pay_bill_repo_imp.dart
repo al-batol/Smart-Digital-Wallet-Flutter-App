@@ -22,17 +22,17 @@ class PayBillRepoImp extends PayBillRepository {
   Future<Result<Success>> payBill(PaymentEntity payment) async {
     try {
       final paymentModel = PaymentModel(
-        billId: payment.billId,
-        billType: payment.billType,
-        amount: payment.amount,
-        accountId: payment.accountId,
+        billType: payment.billType!,
+        amount: payment.amount!,
+        currency: payment.currency!,
+        accountId: payment.accountId!,
       );
       await payBillRemoteDataSource.payBill(paymentModel);
       await payBillLocalDataSource.cachePayment(paymentModel);
       return Right(
         PayBillSuccess(
           message:
-              'Successfully paid ${payment.amount} for ${payment.billType}',
+              'Successfully paid ${payment.amount} ${payment.currency} for ${payment.billType}',
         ),
       );
     } on PayBillException catch (e) {

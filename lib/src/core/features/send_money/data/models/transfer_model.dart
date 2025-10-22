@@ -3,7 +3,7 @@ import 'package:smart_digital_wallet/src/core/features/send_money/domain/entitie
 class TransferModel extends TransferEntity {
   const TransferModel({
     required super.recipientAccountId,
-    required super.sourceAccountId,
+    required super.accountId,
     required super.currency,
     required super.amount,
   });
@@ -11,7 +11,7 @@ class TransferModel extends TransferEntity {
   Map<String, dynamic> toJson() {
     return {
       'recipientAccountId': recipientAccountId,
-      'sourceAccountId': sourceAccountId,
+      'sourceAccountId': accountId,
       'currency': currency,
       'amount': amount,
     };

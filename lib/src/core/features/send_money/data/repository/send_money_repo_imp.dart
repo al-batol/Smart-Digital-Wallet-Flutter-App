@@ -34,9 +34,9 @@ class SendMoneyRepoImp extends SendMoneyRepository {
     try {
       final transferModel = TransferModel(
         recipientAccountId: transfer.recipientAccountId,
-        sourceAccountId: transfer.sourceAccountId,
-        currency: transfer.currency,
-        amount: transfer.amount,
+        accountId: transfer.accountId!,
+        currency: transfer.currency!,
+        amount: transfer.amount!,
       );
       await sendMoneyRemoteDataSource.sendMoney(transferModel);
       await sendMoneyLocalDataSource.cacheTransfer(transferModel);

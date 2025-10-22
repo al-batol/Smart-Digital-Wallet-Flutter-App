@@ -131,12 +131,21 @@ class _PayBillViewState extends State<PayBillView> {
                         text: 'Pay Bill',
                         onPressed: () {
                           if (_formKey.currentState!.validate() &&
-                              state.selectedBillType != null) {
+                              state.selectedBillType != null &&
+                              widget.accounts.isNotEmpty &&
+                              widget.accounts.first.currencyBalances != null &&
+                              widget
+                                  .accounts
+                                  .first
+                                  .currencyBalances!
+                                  .isNotEmpty) {
+                            final defaultCurrency =
+                                widget.accounts.first.currencyBalances!.first;
                             context.read<PayBillBloc>().add(
                               ConfirmPayBillEvent(
-                                billId: state.selectedBillType!.id,
                                 billType: state.selectedBillType!.billType,
                                 amount: double.parse(_amountController.text),
+                                currency: defaultCurrency.currency.currency,
                                 accountId: widget.accounts.first.id,
                               ),
                             );

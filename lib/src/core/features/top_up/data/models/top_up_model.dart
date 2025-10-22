@@ -17,9 +17,9 @@ class TopUpModel extends TopUpEntity {
 
   factory TopUpModel.fromEntity(TopUpEntity entity) {
     return TopUpModel(
-      amount: entity.amount,
-      currency: entity.currency,
-      accountId: entity.accountId,
+      amount: entity.amount!,
+      currency: entity.currency!,
+      accountId: entity.accountId!,
     );
   }
 }
