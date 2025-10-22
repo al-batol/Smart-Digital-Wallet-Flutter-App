@@ -24,3 +24,7 @@ class TopUpException extends AppException {
 class SendMoneyException extends AppException {
   const SendMoneyException({required super.message});
 }
+
+class PayBillException extends AppException {
+  const PayBillException({required super.message});
+}

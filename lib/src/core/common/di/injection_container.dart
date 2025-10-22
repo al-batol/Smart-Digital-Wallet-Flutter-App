@@ -27,6 +27,12 @@ import 'package:smart_digital_wallet/src/core/features/send_money/domain/reposit
 import 'package:smart_digital_wallet/src/core/features/send_money/domain/usecases/get_beneficiaries_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/send_money/domain/usecases/send_money_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/send_money/presentation/blocs/bloc/send_money_bloc.dart';
+import 'package:smart_digital_wallet/src/core/features/pay_bill/data/data_sources/pay_bill_local_data_source.dart';
+import 'package:smart_digital_wallet/src/core/features/pay_bill/data/data_sources/pay_bill_remote_data_source.dart';
+import 'package:smart_digital_wallet/src/core/features/pay_bill/data/repository/pay_bill_repo_imp.dart';
+import 'package:smart_digital_wallet/src/core/features/pay_bill/domain/repository/pay_bill_repository.dart';
+import 'package:smart_digital_wallet/src/core/features/pay_bill/domain/usecases/pay_bill_usecase.dart';
+import 'package:smart_digital_wallet/src/core/features/pay_bill/presentation/blocs/bloc/pay_bill_bloc.dart';
 
 final sl = GetIt.instance;
 void init() {
@@ -49,6 +55,7 @@ void init() {
       () =>
           SendMoneyBloc(sendMoneyUsecase: sl(), getBeneficiariesUsecase: sl()),
     )
+    ..registerFactory<PayBillBloc>(() => PayBillBloc(payBillUsecase: sl()))
     // local data sources
     ..registerLazySingleton<AuthLocalDataSourse>(
       () => AuthLocalDataSourseImp(secureStorageService: sl()),
@@ -58,6 +65,9 @@ void init() {
     )
     ..registerLazySingleton<SendMoneyLocalDataSource>(
       () => SendMoneyLocalDataSourceImp(),
+    )
+    ..registerLazySingleton<PayBillLocalDataSource>(
+      () => PayBillLocalDataSourceImp(),
     )
     // remote data sources
     ..registerLazySingleton<AuthRemoteDataSource>(
@@ -71,6 +81,9 @@ void init() {
     )
     ..registerLazySingleton<SendMoneyRemoteDataSource>(
       () => SendMoneyRemoteDataSourceImp(apiClientService: sl()),
+    )
+    ..registerLazySingleton<PayBillRemoteDataSource>(
+      () => PayBillRemoteDataSourceImp(apiClientService: sl()),
     )
     // repositories
     ..registerLazySingleton<AuthRepository>(
@@ -87,6 +100,12 @@ void init() {
       () => SendMoneyRepoImp(
         sendMoneyRemoteDataSource: sl(),
         sendMoneyLocalDataSource: sl(),
+      ),
+    )
+    ..registerLazySingleton<PayBillRepository>(
+      () => PayBillRepoImp(
+        payBillRemoteDataSource: sl(),
+        payBillLocalDataSource: sl(),
       ),
     )
     // usecases
@@ -107,5 +126,8 @@ void init() {
     )
     ..registerLazySingleton<GetBeneficiariesUsecase>(
       () => GetBeneficiariesUsecase(sendMoneyRepository: sl()),
+    )
+    ..registerLazySingleton<PayBillUsecase>(
+      () => PayBillUsecase(payBillRepository: sl()),
     );
 }

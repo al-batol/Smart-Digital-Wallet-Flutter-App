@@ -11,6 +11,8 @@ import 'package:smart_digital_wallet/src/core/features/top_up/presentation/blocs
 import 'package:smart_digital_wallet/src/core/features/top_up/presentation/views/top_up_view.dart';
 import 'package:smart_digital_wallet/src/core/features/send_money/presentation/blocs/bloc/send_money_bloc.dart';
 import 'package:smart_digital_wallet/src/core/features/send_money/presentation/views/send_money_view.dart';
+import 'package:smart_digital_wallet/src/core/features/pay_bill/presentation/blocs/bloc/pay_bill_bloc.dart';
+import 'package:smart_digital_wallet/src/core/features/pay_bill/presentation/views/pay_bill_view.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -48,6 +50,18 @@ final GoRouter appRouter = GoRouter(
         return BlocProvider(
           create: (context) => sl<SendMoneyBloc>(),
           child: SendMoneyView(accounts: accounts.cast<AccountEntity>()),
+        );
+      },
+    ),
+    GoRoute(
+      path: payBillRoute,
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+        final accounts = extra?['accounts'] as List? ?? [];
+
+        return BlocProvider(
+          create: (context) => sl<PayBillBloc>(),
+          child: PayBillView(accounts: accounts.cast<AccountEntity>()),
         );
       },
     ),

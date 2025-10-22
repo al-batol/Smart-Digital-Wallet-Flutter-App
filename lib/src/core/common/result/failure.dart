@@ -24,3 +24,7 @@ class TopUpFailure extends Failure {
 class SendMoneyFailure extends Failure {
   const SendMoneyFailure({required super.message});
 }
+
+class PayBillFailure extends Failure {
+  const PayBillFailure({required super.message});
+}

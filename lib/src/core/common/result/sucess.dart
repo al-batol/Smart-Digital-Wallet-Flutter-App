@@ -20,3 +20,7 @@ class TopUpSuccess extends Success {
 class SendMoneySuccess extends Success {
   const SendMoneySuccess({required super.message});
 }
+
+class PayBillSuccess extends Success {
+  const PayBillSuccess({required super.message});
+}
