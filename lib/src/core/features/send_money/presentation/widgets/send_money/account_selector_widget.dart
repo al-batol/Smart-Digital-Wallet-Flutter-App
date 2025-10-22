@@ -27,10 +27,8 @@ class AccountSelectorWidget extends StatelessWidget {
           subtitle: 'Choose which account to send from',
           selectedValue: currentAccount,
           items: accounts,
-          displayText: (account) => FormatHelper.formatAccountDisplay(
-            account.type.name[0].toUpperCase() + account.type.name,
-            account.id.substring(account.id.length - 4),
-          ),
+          displayText: (account) =>
+              FormatHelper.formatAccountDisplay(account.type.name, account.id),
           onChanged: (AccountEntity? newAccount) {
             if (newAccount != null) {
               context.read<SendMoneyBloc>().add(
