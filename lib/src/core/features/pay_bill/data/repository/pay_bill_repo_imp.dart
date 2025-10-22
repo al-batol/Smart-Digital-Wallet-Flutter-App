@@ -21,12 +21,7 @@ class PayBillRepoImp extends PayBillRepository {
   @override
   Future<Result<Success>> payBill(PaymentEntity payment) async {
     try {
-      final paymentModel = PaymentModel(
-        billType: payment.billType!,
-        amount: payment.amount!,
-        currency: payment.currency!,
-        accountId: payment.accountId!,
-      );
+      final paymentModel = PaymentModel.fromEntity(payment);
       await payBillRemoteDataSource.payBill(paymentModel);
       await payBillLocalDataSource.cachePayment(paymentModel);
       return Right(

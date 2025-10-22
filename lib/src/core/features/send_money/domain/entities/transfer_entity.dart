@@ -1,13 +1,23 @@
-import 'package:smart_digital_wallet/src/core/common/models/transaction_model.dart';
-import 'package:hive/hive.dart';
-part 'transfer_entity.g.dart';
+import 'package:equatable/equatable.dart';
 
-@HiveType(typeId: 2)
-class TransferEntity extends TransactionModel {
+class TransferEntity extends Equatable {
+  final String recipientAccountId;
+  final String sourceAccountId;
+  final String currency;
+  final double amount;
+
   const TransferEntity({
-    required super.recipientAccountId,
-    required super.accountId,
-    required super.currency,
-    required super.amount,
+    required this.recipientAccountId,
+    required this.sourceAccountId,
+    required this.currency,
+    required this.amount,
   });
+
+  @override
+  List<Object?> get props => [
+    recipientAccountId,
+    sourceAccountId,
+    currency,
+    amount,
+  ];
 }

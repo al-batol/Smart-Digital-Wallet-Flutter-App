@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'payment_entity.dart';
+part of 'payment_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class PaymentEntityAdapter extends TypeAdapter<PaymentEntity> {
+class PaymentModelAdapter extends TypeAdapter<PaymentModel> {
   @override
   final int typeId = 3;
 
   @override
-  PaymentEntity read(BinaryReader reader) {
+  PaymentModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return PaymentEntity(
+    return PaymentModel(
       billType: fields[7] as String?,
       amount: fields[2] as double?,
       currency: fields[3] as String?,
@@ -25,7 +25,7 @@ class PaymentEntityAdapter extends TypeAdapter<PaymentEntity> {
   }
 
   @override
-  void write(BinaryWriter writer, PaymentEntity obj) {
+  void write(BinaryWriter writer, PaymentModel obj) {
     writer
       ..writeByte(8)
       ..writeByte(0)
@@ -52,7 +52,7 @@ class PaymentEntityAdapter extends TypeAdapter<PaymentEntity> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PaymentEntityAdapter &&
+      other is PaymentModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

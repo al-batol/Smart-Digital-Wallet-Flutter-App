@@ -32,12 +32,7 @@ class SendMoneyRepoImp extends SendMoneyRepository {
   @override
   Future<Result<Success>> sendMoney(TransferEntity transfer) async {
     try {
-      final transferModel = TransferModel(
-        recipientAccountId: transfer.recipientAccountId,
-        accountId: transfer.accountId!,
-        currency: transfer.currency!,
-        amount: transfer.amount!,
-      );
+      final transferModel = TransferModel.fromEntity(transfer);
       await sendMoneyRemoteDataSource.sendMoney(transferModel);
       await sendMoneyLocalDataSource.cacheTransfer(transferModel);
       return Right(

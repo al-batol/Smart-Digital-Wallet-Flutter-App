@@ -1,31 +1,31 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'transfer_entity.dart';
+part of 'transfer_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TransferEntityAdapter extends TypeAdapter<TransferEntity> {
+class TransferModelAdapter extends TypeAdapter<TransferModel> {
   @override
   final int typeId = 2;
 
   @override
-  TransferEntity read(BinaryReader reader) {
+  TransferModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return TransferEntity(
-      recipientAccountId: fields[5] as String?,
-      accountId: fields[4] as String?,
-      currency: fields[3] as String?,
-      amount: fields[2] as double?,
+    return TransferModel(
+      recipientAccountId: fields[5] as String? ?? '',
+      sourceAccountId: fields[4] as String? ?? '',
+      currency: fields[3] as String? ?? '',
+      amount: fields[2] as double? ?? 0.0,
     );
   }
 
   @override
-  void write(BinaryWriter writer, TransferEntity obj) {
+  void write(BinaryWriter writer, TransferModel obj) {
     writer
       ..writeByte(8)
       ..writeByte(0)
@@ -52,7 +52,7 @@ class TransferEntityAdapter extends TypeAdapter<TransferEntity> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TransferEntityAdapter &&
+      other is TransferModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

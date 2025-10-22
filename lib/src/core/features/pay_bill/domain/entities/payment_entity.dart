@@ -1,13 +1,18 @@
-import 'package:smart_digital_wallet/src/core/common/models/transaction_model.dart';
-import 'package:hive/hive.dart';
-part 'payment_entity.g.dart';
+import 'package:equatable/equatable.dart';
 
-@HiveType(typeId: 3)
-class PaymentEntity extends TransactionModel {
+class PaymentEntity extends Equatable {
+  final String billType;
+  final double amount;
+  final String currency;
+  final String accountId;
+
   const PaymentEntity({
-    required super.billType,
-    required super.amount,
-    required super.currency,
-    required super.accountId,
+    required this.billType,
+    required this.amount,
+    required this.currency,
+    required this.accountId,
   });
+
+  @override
+  List<Object?> get props => [billType, amount, currency, accountId];
 }
