@@ -7,12 +7,12 @@ import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions
 import 'package:smart_digital_wallet/src/core/common/helper/loading_dialog.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/responsive_helper.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/snack_bars.dart';
+import 'package:smart_digital_wallet/src/core/common/widgets/amount_input_widget.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/app_button.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_xl.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/account_entity.dart';
 import 'package:smart_digital_wallet/src/core/features/top_up/presentation/blocs/bloc/top_up_bloc.dart';
 import 'package:smart_digital_wallet/src/core/features/top_up/presentation/widgets/top_up/account_selector_widget.dart';
-import 'package:smart_digital_wallet/src/core/features/top_up/presentation/widgets/top_up/amount_input_widget.dart';
 import 'package:smart_digital_wallet/src/core/features/top_up/presentation/widgets/top_up/currency_selector_widget.dart';
 
 class TopUpView extends StatefulWidget {

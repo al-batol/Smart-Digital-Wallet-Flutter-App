@@ -20,3 +20,7 @@ class DashboardException extends AppException {
 class TopUpException extends AppException {
   const TopUpException({required super.message});
 }
+
+class SendMoneyException extends AppException {
+  const SendMoneyException({required super.message});
+}

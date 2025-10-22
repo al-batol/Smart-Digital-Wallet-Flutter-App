@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
 import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_md.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_sm.dart';
-import 'package:smart_digital_wallet/src/core/features/top_up/presentation/blocs/bloc/top_up_bloc.dart';
 
 class AmountInputWidget extends StatelessWidget {
   final TextEditingController amountController;
+  final double? maxAmount;
+  final String? currency;
 
-  const AmountInputWidget({super.key, required this.amountController});
+  const AmountInputWidget({
+    super.key,
+    required this.amountController,
+    this.maxAmount,
+    this.currency,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,17 @@ class AmountInputWidget extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: AppDimensions.spacingSm.height(context)),
-        const TextWidgetSm(text: 'Amount', textColor: textSecondaryColor),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const TextWidgetSm(text: 'Amount', textColor: textSecondaryColor),
+            if (maxAmount != null && currency != null)
+              TextWidgetSm(
+                text: 'Available: ${maxAmount!.toStringAsFixed(2)} $currency',
+                textColor: textSecondaryColor,
+              ),
+          ],
+        ),
         SizedBox(height: AppDimensions.spacingSm.height(context)),
         TextFormField(
           controller: amountController,
@@ -75,13 +90,10 @@ class AmountInputWidget extends StatelessWidget {
             if (amount <= 0) {
               return 'Amount must be greater than 0';
             }
-            return null;
-          },
-          onChanged: (value) {
-            final amount = double.tryParse(value);
-            if (amount != null && amount > 0) {
-              context.read<TopUpBloc>().add(SelectAmountEvent(amount: amount));
+            if (maxAmount != null && amount > maxAmount!) {
+              return 'Insufficient balance. Max: ${maxAmount!.toStringAsFixed(2)}';
             }
+            return null;
           },
         ),
       ],

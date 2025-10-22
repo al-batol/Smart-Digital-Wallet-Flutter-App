@@ -19,11 +19,12 @@ class ServiceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (service.routeName == topUpRoute) {
+        if (service.routeName == topUpRoute ||
+            service.routeName == sendMoneyRoute) {
           final state = context.read<DashboardBloc>().state;
           if (state.accounts != null && state.accounts!.accounts.isNotEmpty) {
             context.push(
-              topUpRoute,
+              service.routeName,
               extra: {'accounts': state.accounts!.accounts},
             );
           }

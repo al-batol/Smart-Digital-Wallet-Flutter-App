@@ -8,7 +8,6 @@ import 'package:smart_digital_wallet/src/core/features/dashboard/data/models/acc
 
 abstract class DashboardRemoteDataScource {
   Future<AccountsModel> getAccounts();
-  Future<Unit> sendMoney({required String receiverId, required double amount});
   Future<Unit> currencyExchange({
     required AccountCurrency fromCurrency,
     required AccountCurrency toCurrency,
@@ -44,22 +43,6 @@ class DashboardRemoteDataScourceImp implements DashboardRemoteDataScource {
     try {
       await apiClientService.get('https://api.com/dashboard/accounts');
       return AccountsModel.fromJson(accountsMock);
-    } catch (e) {
-      throw DashboardException(message: e.toString());
-    }
-  }
-
-  @override
-  Future<Unit> sendMoney({
-    required String receiverId,
-    required double amount,
-  }) async {
-    try {
-      apiClientService.post('https://api.com/dashboard/send-money', {
-        'receiverId': receiverId,
-        'amount': amount,
-      });
-      return unit;
     } catch (e) {
       throw DashboardException(message: e.toString());
     }

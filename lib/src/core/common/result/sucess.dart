@@ -16,3 +16,7 @@ class DashboardSuccess extends Success {
 class TopUpSuccess extends Success {
   const TopUpSuccess({required super.message});
 }
+
+class SendMoneySuccess extends Success {
+  const SendMoneySuccess({required super.message});
+}

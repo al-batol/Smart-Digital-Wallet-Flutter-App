@@ -20,3 +20,7 @@ class DashboardFailure extends Failure {
 class TopUpFailure extends Failure {
   const TopUpFailure({required super.message});
 }
+
+class SendMoneyFailure extends Failure {
+  const SendMoneyFailure({required super.message});
+}

@@ -4,10 +4,6 @@ import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities
 
 abstract class DashbaordRepository {
   ResultFuture<AccountsEntity> getAccounts();
-  ResultVoidWithMessage sendMoney({
-    required String receiverId,
-    required double amount,
-  });
   ResultVoidWithMessage currencyExchange({
     required AccountCurrency fromCurrency,
     required AccountCurrency toCurrency,

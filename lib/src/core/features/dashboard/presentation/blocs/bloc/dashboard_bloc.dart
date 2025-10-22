@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/account_entity.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/accounts_entity.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/currency_balance_entity.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/get_accounts_usecase.dart';

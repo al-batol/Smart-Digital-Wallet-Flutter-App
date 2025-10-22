@@ -41,20 +41,4 @@ class DashbaordRepoImp implements DashbaordRepository {
       return left(DashboardFailure(message: e.message));
     }
   }
-
-  @override
-  ResultVoidWithMessage sendMoney({
-    required String receiverId,
-    required double amount,
-  }) async {
-    try {
-      await dashbaordRemoteDataSource.sendMoney(
-        receiverId: receiverId,
-        amount: amount,
-      );
-      return right(DashboardSuccess(message: "send_money_success"));
-    } on DashboardException catch (e) {
-      return left(DashboardFailure(message: e.message));
-    }
-  }
 }
