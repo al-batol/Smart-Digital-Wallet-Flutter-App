@@ -1,6 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_constants.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/cubit/localization_cubit.dart';
 import 'package:smart_digital_wallet/src/core/common/services/api_client_service.dart';
 import 'package:smart_digital_wallet/src/core/common/services/network_connectivity_service.dart';
 import 'package:smart_digital_wallet/src/core/common/services/secure_storage_service.dart';
@@ -39,9 +42,13 @@ import 'package:smart_digital_wallet/src/core/features/pay_bill/domain/usecases/
 import 'package:smart_digital_wallet/src/core/features/pay_bill/presentation/blocs/bloc/pay_bill_bloc.dart';
 
 final sl = GetIt.instance;
-void init() {
+Future<void> init() async {
+  // Initialize SharedPreferences
+  final sharedPreferences = await SharedPreferences.getInstance();
+
   // services
   sl
+    ..registerLazySingleton<SharedPreferences>(() => sharedPreferences)
     ..registerLazySingleton<FlutterSecureStorage>(
       () => const FlutterSecureStorage(),
     )
@@ -54,6 +61,9 @@ void init() {
     )
     ..registerLazySingleton<ApiClientService>(() => ApiClientService())
     // blocs
+    ..registerFactory<LocalizationCubit>(
+      () => LocalizationCubit(sharedPreferences: sl(), locale: appLanguages[0]),
+    )
     ..registerFactory<AuthBloc>(() => AuthBloc(signInUsecase: sl()))
     ..registerFactory<DashboardBloc>(
       () => DashboardBloc(

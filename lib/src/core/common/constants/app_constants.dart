@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 const String testEmail = 'fake_email@gmail.com';
 const String testPassword = 'fake_password3#123M';
 
 const String tokenKey = 'token';
+const List<Locale> appLanguages = [Locale('en'), Locale('ar')];
 
 // assets
 const String starterImg = "assets/images/starter.svg";
