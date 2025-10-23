@@ -4,4 +4,9 @@ class ApiClientService {
     await Future.delayed(Duration(seconds: 2));
     return;
   }
+
+  Future<List<dynamic>> get(String url) async {
+    await Future.delayed(Duration(seconds: 2));
+    return [];
+  }
 }

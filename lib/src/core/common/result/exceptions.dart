@@ -12,3 +12,19 @@ abstract class AppException extends Equatable implements Exception {
 class AuthException extends AppException {
   const AuthException({required super.message});
 }
+
+class DashboardException extends AppException {
+  const DashboardException({required super.message});
+}
+
+class TopUpException extends AppException {
+  const TopUpException({required super.message});
+}
+
+class SendMoneyException extends AppException {
+  const SendMoneyException({required super.message});
+}
+
+class PayBillException extends AppException {
+  const PayBillException({required super.message});
+}

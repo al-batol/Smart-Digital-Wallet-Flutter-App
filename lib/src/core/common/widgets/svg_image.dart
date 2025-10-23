@@ -7,6 +7,7 @@ class SvgImage extends StatelessWidget {
   final int? width;
   final int? height;
   final BoxFit? fit;
+  final Color? color;
 
   const SvgImage({
     super.key,
@@ -14,6 +15,7 @@ class SvgImage extends StatelessWidget {
     this.width,
     this.height,
     this.fit,
+    this.color,
   });
 
   @override
@@ -21,7 +23,7 @@ class SvgImage extends StatelessWidget {
     return SizedBox(
       height: height?.height(context),
       width: width?.width(context),
-      child: SvgPicture.asset(path, fit: fit ?? BoxFit.cover),
+      child: SvgPicture.asset(path, fit: fit ?? BoxFit.cover, color: color),
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions
 import 'package:smart_digital_wallet/src/core/common/helper/loading_dialog.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/responsive_helper.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/snack_bars.dart';
+import 'package:smart_digital_wallet/src/core/common/routes/app_route_names.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/app_button.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_xl.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/presentation/bloc/bloc/auth_bloc.dart';
@@ -77,6 +78,9 @@ class _SignInViewState extends State<SignInView> {
                   message: 'Logged in successfully',
                 ),
               );
+            if (context.mounted) {
+              context.pushReplacement(dashboardRoute);
+            }
           }
         },
         child: SafeArea(
