@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
 import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
+import 'package:smart_digital_wallet/src/core/common/widgets/language_button.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_sm.dart';
 
 class DashboardHeaderWidget extends StatelessWidget {
@@ -21,15 +22,24 @@ class DashboardHeaderWidget extends StatelessWidget {
         top: sidePadding + 30.height(context),
       ),
       child: Row(
-        spacing: AppDimensions.spacingSm.width(context),
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CircleAvatar(
-            child: SizedBox(
-              width: 48.width(context),
-              height: 48.width(context),
-            ),
+          Row(
+            spacing: AppDimensions.spacingSm.width(context),
+            children: [
+              CircleAvatar(
+                child: SizedBox(
+                  width: 48.width(context),
+                  height: 48.width(context),
+                ),
+              ),
+              TextWidgetSm(
+                text: 'Hello\n$userName',
+                fontWeight: FontWeight.w600,
+              ),
+            ],
           ),
-          TextWidgetSm(text: 'Hello\n$userName', fontWeight: FontWeight.w600),
+          LanguageButton(isDashboard: true),
         ],
       ),
     );

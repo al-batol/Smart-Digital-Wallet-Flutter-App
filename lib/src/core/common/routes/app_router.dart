@@ -67,8 +67,8 @@ final GoRouter appRouter = GoRouter(
     ),
   ],
   redirect: (context, state) {
-    if (state.uri.path == '/' || state.uri.path == dashboardRoute) {
-      return dashboardRoute;
+    if (state.uri.path == '/' || state.uri.path == starterRoute) {
+      return starterRoute;
     }
     return null;
   },

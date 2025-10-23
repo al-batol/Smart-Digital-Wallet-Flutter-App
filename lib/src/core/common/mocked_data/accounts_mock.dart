@@ -4,7 +4,7 @@ const Map<String, dynamic> accountsMock = {
     {
       "id": "1782,6897,6578,3564",
       "type": "wallet",
-      "currencies": {"USD": 100, "YER": 25000},
+      "currencies": {"YER": 10000, "USD": 200, "SAR": 800},
     },
     {
       "id": "6715,8172,9128,7162",

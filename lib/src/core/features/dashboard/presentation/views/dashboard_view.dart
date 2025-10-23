@@ -31,7 +31,7 @@ class _DashboardViewState extends State<DashboardView> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const DashboardHeaderWidget(userName: 'John Doe'),
+          const DashboardHeaderWidget(userName: 'Ali Saleh'),
           BlocBuilder<DashboardBloc, DashboardState>(
             buildWhen: (previous, current) =>
                 previous.isLoading != current.isLoading ||
