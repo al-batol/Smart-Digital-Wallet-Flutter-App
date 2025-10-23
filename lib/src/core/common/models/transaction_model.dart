@@ -20,6 +20,8 @@ class TransactionModel extends Equatable {
   final String? accountType;
   @HiveField(7)
   final String? billType;
+  @HiveField(8)
+  final String? billNumber;
 
   const TransactionModel({
     this.id,
@@ -30,6 +32,7 @@ class TransactionModel extends Equatable {
     this.recipientAccountId,
     this.accountType,
     this.billType,
+    this.billNumber,
   });
 
   @override
@@ -42,6 +45,7 @@ class TransactionModel extends Equatable {
     recipientAccountId,
     accountType,
     billType,
+    billNumber,
   ];
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) {
@@ -54,6 +58,7 @@ class TransactionModel extends Equatable {
       accountType: json['accountType'],
       billType: json['billType'],
       recipientAccountId: json['recipientAccountId'],
+      billNumber: json['billNumber'],
     );
   }
 
@@ -67,6 +72,7 @@ class TransactionModel extends Equatable {
       'accountType': accountType,
       'billType': billType,
       'recipientAccountId': recipientAccountId,
+      'billNumber': billNumber,
     };
   }
 }

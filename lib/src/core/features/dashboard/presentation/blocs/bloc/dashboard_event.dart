@@ -23,3 +23,7 @@ class ToggleSelectedCurrencyEvent extends DashboardEvent {
   @override
   List<Object> get props => [index];
 }
+
+class GetLastTransactionsEvent extends DashboardEvent {
+  const GetLastTransactionsEvent();
+}

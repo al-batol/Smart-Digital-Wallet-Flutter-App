@@ -47,6 +47,7 @@ dependencies:
   shimmer: ^3.0.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  connectivity_plus: ^7.0.0
 
 dev_dependencies:
   flutter_test:

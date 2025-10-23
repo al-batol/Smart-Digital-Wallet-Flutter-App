@@ -7,9 +7,21 @@ import 'package:smart_digital_wallet/src/core/features/dashboard/presentation/wi
 import 'package:smart_digital_wallet/src/core/features/dashboard/presentation/widgets/dashboard/account_cards_carousel_widget.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/presentation/widgets/dashboard/dashboard_header_widget.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/presentation/widgets/dashboard/services_section_widget.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/presentation/widgets/dashboard/transactions_list_widget.dart';
 
-class DashboardView extends StatelessWidget {
+class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
+
+  @override
+  State<DashboardView> createState() => _DashboardViewState();
+}
+
+class _DashboardViewState extends State<DashboardView> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<DashboardBloc>().add(const GetLastTransactionsEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +57,22 @@ class DashboardView extends StatelessWidget {
             },
           ),
           SizedBox(height: AppDimensions.spacingXl.height(context) - 2),
-          const Expanded(child: ServicesSectionWidget()),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppDimensions.paddingLg.width(context),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const ServicesSectionWidget(),
+                  SizedBox(height: AppDimensions.spacingXl.height(context)),
+                  const TransactionsListWidget(),
+                  SizedBox(height: AppDimensions.spacingMd.height(context)),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

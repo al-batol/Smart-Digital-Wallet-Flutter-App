@@ -35,4 +35,8 @@ class TopUpModel extends TransactionModel {
       accountId: accountId!,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {'amount': amount, 'currency': currency, 'accountId': accountId};
+  }
 }

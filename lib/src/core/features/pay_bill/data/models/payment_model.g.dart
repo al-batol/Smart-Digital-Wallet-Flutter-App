@@ -17,17 +17,18 @@ class PaymentModelAdapter extends TypeAdapter<PaymentModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return PaymentModel(
-      billType: fields[7] as String?,
-      amount: fields[2] as double?,
-      currency: fields[3] as String?,
-      accountId: fields[4] as String?,
+      billType: fields[7] as String? ?? '',
+      billNumber: fields[8] as String? ?? '',
+      amount: fields[2] as double? ?? 0.0,
+      currency: fields[3] as String? ?? '',
+      accountId: fields[4] as String? ?? '',
     );
   }
 
   @override
   void write(BinaryWriter writer, PaymentModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -43,7 +44,9 @@ class PaymentModelAdapter extends TypeAdapter<PaymentModel> {
       ..writeByte(6)
       ..write(obj.accountType)
       ..writeByte(7)
-      ..write(obj.billType);
+      ..write(obj.billType)
+      ..writeByte(8)
+      ..write(obj.billNumber);
   }
 
   @override

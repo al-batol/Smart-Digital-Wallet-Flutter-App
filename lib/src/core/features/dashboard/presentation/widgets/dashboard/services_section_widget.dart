@@ -10,23 +10,18 @@ class ServicesSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppDimensions.paddingLg.width(context),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const TextWidgetMd(text: 'Services'),
-          SizedBox(height: AppDimensions.spacingMd.height(context)),
-          Row(
-            spacing: AppDimensions.spacingMd.width(context),
-            children: ServiceModel.services
-                .map((service) => ServiceWidget(service: service))
-                .toList(),
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const TextWidgetMd(text: 'Services', fontWeight: FontWeight.bold),
+        SizedBox(height: AppDimensions.spacingMd.height(context)),
+        Row(
+          spacing: AppDimensions.spacingMd.width(context),
+          children: ServiceModel.services
+              .map((service) => ServiceWidget(service: service))
+              .toList(),
+        ),
+      ],
     );
   }
 }

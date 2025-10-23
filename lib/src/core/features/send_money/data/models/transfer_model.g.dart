@@ -27,7 +27,7 @@ class TransferModelAdapter extends TypeAdapter<TransferModel> {
   @override
   void write(BinaryWriter writer, TransferModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -43,7 +43,9 @@ class TransferModelAdapter extends TypeAdapter<TransferModel> {
       ..writeByte(6)
       ..write(obj.accountType)
       ..writeByte(7)
-      ..write(obj.billType);
+      ..write(obj.billType)
+      ..writeByte(8)
+      ..write(obj.billNumber);
   }
 
   @override

@@ -18,17 +18,19 @@ class SelectBillTypeEvent extends PayBillEvent {
 
 class ConfirmPayBillEvent extends PayBillEvent {
   final String billType;
+  final String billNumber;
   final double amount;
   final String currency;
   final String accountId;
 
   const ConfirmPayBillEvent({
     required this.billType,
+    required this.billNumber,
     required this.amount,
     required this.currency,
     required this.accountId,
   });
 
   @override
-  List<Object> get props => [billType, amount, currency, accountId];
+  List<Object> get props => [billType, billNumber, amount, currency, accountId];
 }

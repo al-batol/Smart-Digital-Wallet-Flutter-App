@@ -8,11 +8,13 @@ import 'package:smart_digital_wallet/src/core/features/auth/data/repository/auth
 import 'package:smart_digital_wallet/src/core/features/auth/domain/repository/auth_repository.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/domain/usecases/signin_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/presentation/bloc/bloc/auth_bloc.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/data/data_sources/dashboard_local_data_source.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/data/data_sources/dashboard_remote_data_scource.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/data/repository/dashbaord_repo_imp.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/repository/dashbaord_repository.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/currency_exchange_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/get_accounts_usecase.dart';
+import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/get_last_transactions_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/presentation/blocs/bloc/dashboard_bloc.dart';
 import 'package:smart_digital_wallet/src/core/features/top_up/data/data_sources/top_up_local_data_source.dart';
 import 'package:smart_digital_wallet/src/core/features/top_up/data/data_sources/top_up_remote_data_source.dart';
@@ -48,7 +50,10 @@ void init() {
     // blocs
     ..registerFactory<AuthBloc>(() => AuthBloc(signInUsecase: sl()))
     ..registerFactory<DashboardBloc>(
-      () => DashboardBloc(getAccountsUsecase: sl()),
+      () => DashboardBloc(
+        getAccountsUsecase: sl(),
+        getLastTransactionsUsecase: sl(),
+      ),
     )
     ..registerFactory<TopUpBloc>(() => TopUpBloc(topUpUsecase: sl()))
     ..registerFactory<SendMoneyBloc>(
@@ -59,6 +64,9 @@ void init() {
     // local data sources
     ..registerLazySingleton<AuthLocalDataSourse>(
       () => AuthLocalDataSourseImp(secureStorageService: sl()),
+    )
+    ..registerLazySingleton<DashboardLocalDataSource>(
+      () => DashboardLocalDataSourceImp(),
     )
     ..registerLazySingleton<TopUpLocalDataSource>(
       () => TopUpLocalDataSourceImp(),
@@ -90,7 +98,10 @@ void init() {
       () => AuthRepoImp(authRemoteDataSource: sl(), authLocalDataSourse: sl()),
     )
     ..registerLazySingleton<DashbaordRepository>(
-      () => DashbaordRepoImp(dashbaordRemoteDataSource: sl()),
+      () => DashbaordRepoImp(
+        dashbaordRemoteDataSource: sl(),
+        dashboardLocalDataSource: sl(),
+      ),
     )
     ..registerLazySingleton<TopUpRepository>(
       () =>
@@ -114,6 +125,9 @@ void init() {
     )
     ..registerLazySingleton<GetAccountsUsecase>(
       () => GetAccountsUsecase(dashbaordRepository: sl()),
+    )
+    ..registerLazySingleton<GetLastTransactionsUsecase>(
+      () => GetLastTransactionsUsecase(repository: sl()),
     )
     ..registerLazySingleton<CurrencyExchangeUsecase>(
       () => CurrencyExchangeUsecase(dashbaordRepository: sl()),

@@ -10,6 +10,7 @@ import 'package:smart_digital_wallet/src/core/common/helper/snack_bars.dart';
 import 'package:smart_digital_wallet/src/core/common/mocked_data/bill_types_mock.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/amount_input_widget.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/app_button.dart';
+import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_lg.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_xl.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/account_entity.dart';
 import 'package:smart_digital_wallet/src/core/features/pay_bill/data/models/bill_type_model.dart';
@@ -28,12 +29,14 @@ class PayBillView extends StatefulWidget {
 class _PayBillViewState extends State<PayBillView> {
   late final GlobalKey<FormState> _formKey;
   late final TextEditingController _amountController;
+  late final TextEditingController _billNumberController;
 
   @override
   void initState() {
     super.initState();
     _formKey = GlobalKey<FormState>();
     _amountController = TextEditingController();
+    _billNumberController = TextEditingController();
     final firstBillType = BillTypeModel.fromJson(billTypesMock.first);
     context.read<PayBillBloc>().add(
       SelectBillTypeEvent(billType: firstBillType),
@@ -43,6 +46,7 @@ class _PayBillViewState extends State<PayBillView> {
   @override
   void dispose() {
     _amountController.dispose();
+    _billNumberController.dispose();
     super.dispose();
   }
 
@@ -103,6 +107,54 @@ class _PayBillViewState extends State<PayBillView> {
                 children: [
                   const BillTypeSelectorWidget(),
                   SizedBox(height: AppDimensions.spacingMd.height(context)),
+                  const TextWidgetLg(
+                    text: 'Bill Number',
+                    textColor: textHeadlineColor,
+                  ),
+                  SizedBox(height: AppDimensions.spacingSm.height(context)),
+                  TextFormField(
+                    controller: _billNumberController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      hintText: 'Enter your bill number',
+                      hintStyle: const TextStyle(color: hintTextFieldColor),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: textHeadlineColor.withValues(alpha: 0.2),
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: textHeadlineColor.withValues(alpha: 0.2),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: primaryColor.withValues(alpha: 0.5),
+                        ),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: errorTextColor.withValues(alpha: 0.5),
+                        ),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: errorTextColor.withValues(alpha: 0.5),
+                        ),
+                      ),
+                      contentPadding: EdgeInsets.all(
+                        AppDimensions.paddingSm.width(context),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter bill number';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: AppDimensions.spacingMd.height(context)),
                   Builder(
                     builder: (context) {
                       double? maxAmount;
@@ -144,6 +196,7 @@ class _PayBillViewState extends State<PayBillView> {
                             context.read<PayBillBloc>().add(
                               ConfirmPayBillEvent(
                                 billType: state.selectedBillType!.billType,
+                                billNumber: _billNumberController.text,
                                 amount: double.parse(_amountController.text),
                                 currency: defaultCurrency.currency.currency,
                                 accountId: widget.accounts.first.id,

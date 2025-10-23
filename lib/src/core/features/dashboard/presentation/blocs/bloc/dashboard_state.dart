@@ -6,6 +6,7 @@ class DashboardState extends Equatable {
   final String errorMessage;
   final AccountsEntity? accounts;
   final int selectedCurrencyIndex;
+  final List<TransactionModel> lastTransactions;
 
   const DashboardState({
     this.isLoading = false,
@@ -13,6 +14,7 @@ class DashboardState extends Equatable {
     this.errorMessage = '',
     this.accounts,
     this.selectedCurrencyIndex = 0,
+    this.lastTransactions = const [],
   });
 
   DashboardState copyWith({
@@ -22,6 +24,7 @@ class DashboardState extends Equatable {
     AccountsEntity? accounts,
     CurrencyBalanceEntity? selectedCurrency,
     int? selectedCurrencyIndex,
+    List<TransactionModel>? lastTransactions,
   }) {
     return DashboardState(
       isLoading: isLoading ?? this.isLoading,
@@ -30,6 +33,7 @@ class DashboardState extends Equatable {
       accounts: accounts ?? this.accounts,
       selectedCurrencyIndex:
           selectedCurrencyIndex ?? this.selectedCurrencyIndex,
+      lastTransactions: lastTransactions ?? this.lastTransactions,
     );
   }
 
@@ -40,5 +44,6 @@ class DashboardState extends Equatable {
     errorMessage,
     accounts,
     selectedCurrencyIndex,
+    lastTransactions,
   ];
 }

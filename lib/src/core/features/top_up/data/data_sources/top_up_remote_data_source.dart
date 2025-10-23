@@ -22,17 +22,18 @@ class TopUpRemoteDataSourceImp implements TopUpRemoteDataSource {
     required String accountId,
   }) async {
     try {
-      await apiClientService.post('https://api.com/top-up', {
-        'amount': amount,
-        'currency': currency,
-        'accountId': accountId,
-      });
-
-      return TopUpModel(
+      final topUpModel = TopUpModel(
         amount: amount,
         currency: currency,
         accountId: accountId,
       );
+
+      await apiClientService.post(
+        'https://api.com/top-up',
+        topUpModel.toJson(),
+      );
+
+      return topUpModel;
     } catch (e) {
       throw TopUpException(message: e.toString());
     }
