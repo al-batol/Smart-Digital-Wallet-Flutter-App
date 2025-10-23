@@ -87,59 +87,62 @@ class _TopUpViewState extends State<TopUpView> {
           }
         },
         child: SafeArea(
-          child: Container(
-            width: ResponsiveHelper.screenWidth(context),
-            padding: EdgeInsets.all(AppDimensions.paddingLg.width(context)),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AccountSelectorWidget(
-                    accounts: widget.accounts,
-                    selectedAccount: widget.accounts.first,
-                  ),
-                  SizedBox(height: AppDimensions.spacingMd.height(context)),
-                  BlocBuilder<TopUpBloc, TopUpState>(
-                    buildWhen: (previous, current) =>
-                        previous.selectedAccount != current.selectedAccount,
-                    builder: (context, state) {
-                      return CurrencySelectorWidget(
-                        selectedAccount: state.selectedAccount,
-                      );
-                    },
-                  ),
-                  SizedBox(height: AppDimensions.spacingMd.height(context)),
-                  AmountInputWidget(amountController: _amountController),
-                  const Spacer(),
-                  BlocBuilder<TopUpBloc, TopUpState>(
-                    buildWhen: (previous, current) =>
-                        previous.selectedAccount != current.selectedAccount ||
-                        previous.selectedCurrencyIndex !=
-                            current.selectedCurrencyIndex,
-                    builder: (context, state) {
-                      return AppButton(
-                        text: 'Confirm Top Up',
-                        onPressed: () {
-                          if (_formKey.currentState!.validate() &&
-                              state.selectedAccount != null) {
-                            final selectedCurrency = state
-                                .selectedAccount!
-                                .currencyBalances![state.selectedCurrencyIndex];
-                            context.read<TopUpBloc>().add(
-                              ConfirmTopUpEvent(
-                                amount: double.parse(_amountController.text),
-                                currency: selectedCurrency.currency.currency,
-                                accountId: state.selectedAccount!.id,
-                              ),
-                            );
-                          }
-                        },
-                      );
-                    },
-                  ),
-                  SizedBox(height: AppDimensions.spacingMd.height(context)),
-                ],
+          child: SingleChildScrollView(
+            child: Container(
+              width: ResponsiveHelper.screenWidth(context),
+              padding: EdgeInsets.all(AppDimensions.paddingLg.width(context)),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AccountSelectorWidget(
+                      accounts: widget.accounts,
+                      selectedAccount: widget.accounts.first,
+                    ),
+                    SizedBox(height: AppDimensions.spacingMd.height(context)),
+                    BlocBuilder<TopUpBloc, TopUpState>(
+                      buildWhen: (previous, current) =>
+                          previous.selectedAccount != current.selectedAccount,
+                      builder: (context, state) {
+                        return CurrencySelectorWidget(
+                          selectedAccount: state.selectedAccount,
+                        );
+                      },
+                    ),
+                    SizedBox(height: AppDimensions.spacingMd.height(context)),
+                    AmountInputWidget(amountController: _amountController),
+                    SizedBox(height: AppDimensions.spacingXl.height(context)),
+                    BlocBuilder<TopUpBloc, TopUpState>(
+                      buildWhen: (previous, current) =>
+                          previous.selectedAccount != current.selectedAccount ||
+                          previous.selectedCurrencyIndex !=
+                              current.selectedCurrencyIndex,
+                      builder: (context, state) {
+                        return AppButton(
+                          text: 'Confirm Top Up',
+                          onPressed: () {
+                            if (_formKey.currentState!.validate() &&
+                                state.selectedAccount != null) {
+                              final selectedCurrency =
+                                  state.selectedAccount!.currencyBalances![state
+                                      .selectedCurrencyIndex];
+                              context.read<TopUpBloc>().add(
+                                ConfirmTopUpEvent(
+                                  amount: double.parse(_amountController.text),
+                                  currency: selectedCurrency.currency.currency,
+                                  accountId: state.selectedAccount!.id,
+                                ),
+                              );
+                            }
+                          },
+                        );
+                      },
+                    ),
+                    SizedBox(height: AppDimensions.spacingMd.height(context)),
+                  ],
+                ),
               ),
             ),
           ),

@@ -84,12 +84,14 @@ class _SignInViewState extends State<SignInView> {
           }
         },
         child: SafeArea(
-          child: Column(
-            children: [
-              const Expanded(flex: 2, child: SecurityHeader()),
-              Expanded(
-                flex: 3,
-                child: Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: ResponsiveHelper.screenHeight(context) * 0.35,
+                  child: const SecurityHeader(),
+                ),
+                Container(
                   width: ResponsiveHelper.screenWidth(context),
                   padding: EdgeInsets.all(
                     AppDimensions.paddingLg.width(context),
@@ -107,7 +109,9 @@ class _SignInViewState extends State<SignInView> {
                         PasswordFormField(
                           passwordController: _passwordController,
                         ),
-                        const Spacer(),
+                        SizedBox(
+                          height: AppDimensions.spacingXl.height(context),
+                        ),
                         AppButton(
                           text: 'Sign In',
                           onPressed: () {
@@ -128,8 +132,8 @@ class _SignInViewState extends State<SignInView> {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -20,11 +20,12 @@ class LocalizationCubit extends Cubit<LocalizationState> {
     emit(LocalizationState(locale: locale));
   }
 
-  Future<Locale> getSavedLocale() async {
+  void getSavedLocale() {
     final savedLocale = sharedPreferences.getString(_localeKey);
     if (savedLocale != null) {
-      return Locale(savedLocale);
+      emit(LocalizationState(locale: Locale(savedLocale)));
+    } else {
+      emit(LocalizationState(locale: appLanguages[0]));
     }
-    return appLanguages[0];
   }
 }

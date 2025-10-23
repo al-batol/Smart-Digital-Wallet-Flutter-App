@@ -99,145 +99,161 @@ class _SendMoneyViewState extends State<SendMoneyView> {
           }
         },
         child: SafeArea(
-          child: Container(
-            width: ResponsiveHelper.screenWidth(context),
-            padding: EdgeInsets.all(AppDimensions.paddingLg.width(context)),
-            child: BlocBuilder<SendMoneyBloc, SendMoneyState>(
-              buildWhen: (previous, current) =>
-                  previous.beneficiaries != current.beneficiaries ||
-                  previous.isLoading != current.isLoading,
-              builder: (context, state) {
-                if (state.isLoading && state.beneficiaries.isEmpty) {
-                  return const Center(
-                    child: TextWidgetLg(
-                      text: 'Loading beneficiaries...',
-                      textColor: textSecondaryColor,
-                    ),
-                  );
-                }
+          child: SingleChildScrollView(
+            child: Container(
+              width: ResponsiveHelper.screenWidth(context),
+              padding: EdgeInsets.all(AppDimensions.paddingLg.width(context)),
+              child: BlocBuilder<SendMoneyBloc, SendMoneyState>(
+                buildWhen: (previous, current) =>
+                    previous.beneficiaries != current.beneficiaries ||
+                    previous.isLoading != current.isLoading,
+                builder: (context, state) {
+                  if (state.isLoading && state.beneficiaries.isEmpty) {
+                    return const Center(
+                      child: TextWidgetLg(
+                        text: 'Loading beneficiaries...',
+                        textColor: textSecondaryColor,
+                      ),
+                    );
+                  }
 
-                return Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (state.beneficiaries.isNotEmpty)
-                        const RecipientModeToggleWidget(),
-                      if (state.beneficiaries.isNotEmpty)
+                  return Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (state.beneficiaries.isNotEmpty)
+                          const RecipientModeToggleWidget(),
+                        if (state.beneficiaries.isNotEmpty)
+                          SizedBox(
+                            height: AppDimensions.spacingMd.height(context),
+                          ),
+                        BlocBuilder<SendMoneyBloc, SendMoneyState>(
+                          buildWhen: (previous, current) =>
+                              previous.useBeneficiary != current.useBeneficiary,
+                          builder: (context, state) {
+                            if (!state.useBeneficiary) {
+                              return CardIdInputWidget(
+                                cardIdController: _cardIdController,
+                              );
+                            } else if (state.beneficiaries.isNotEmpty) {
+                              return BeneficiarySelectorWidget(
+                                beneficiaries: state.beneficiaries,
+                              );
+                            } else {
+                              return const TextWidgetLg(
+                                text: 'No beneficiaries found',
+                                textColor: textSecondaryColor,
+                              );
+                            }
+                          },
+                        ),
                         SizedBox(
                           height: AppDimensions.spacingMd.height(context),
                         ),
-                      BlocBuilder<SendMoneyBloc, SendMoneyState>(
-                        buildWhen: (previous, current) =>
-                            previous.useBeneficiary != current.useBeneficiary,
-                        builder: (context, state) {
-                          if (!state.useBeneficiary) {
-                            return CardIdInputWidget(
-                              cardIdController: _cardIdController,
+                        AccountSelectorWidget(
+                          accounts: widget.accounts,
+                          selectedAccount: widget.accounts.first,
+                        ),
+                        SizedBox(
+                          height: AppDimensions.spacingMd.height(context),
+                        ),
+                        BlocBuilder<SendMoneyBloc, SendMoneyState>(
+                          buildWhen: (previous, current) =>
+                              previous.selectedAccount !=
+                              current.selectedAccount,
+                          builder: (context, state) {
+                            return CurrencySelectorWidget(
+                              selectedAccount: state.selectedAccount,
                             );
-                          } else if (state.beneficiaries.isNotEmpty) {
-                            return BeneficiarySelectorWidget(
-                              beneficiaries: state.beneficiaries,
+                          },
+                        ),
+                        SizedBox(
+                          height: AppDimensions.spacingMd.height(context),
+                        ),
+                        BlocBuilder<SendMoneyBloc, SendMoneyState>(
+                          buildWhen: (previous, current) =>
+                              previous.selectedAccount !=
+                                  current.selectedAccount ||
+                              previous.selectedCurrencyIndex !=
+                                  current.selectedCurrencyIndex,
+                          builder: (context, state) {
+                            double? maxAmount;
+                            String? currency;
+                            if (state.selectedAccount != null &&
+                                state.selectedAccount!.currencyBalances !=
+                                    null &&
+                                state
+                                    .selectedAccount!
+                                    .currencyBalances!
+                                    .isNotEmpty) {
+                              final selectedCurrency =
+                                  state.selectedAccount!.currencyBalances![state
+                                      .selectedCurrencyIndex];
+                              maxAmount = selectedCurrency.balance;
+                              currency = selectedCurrency.currency.currency;
+                            }
+                            return AmountInputWidget(
+                              amountController: _amountController,
+                              maxAmount: maxAmount,
+                              currency: currency,
                             );
-                          } else {
-                            return const TextWidgetLg(
-                              text: 'No beneficiaries found',
-                              textColor: textSecondaryColor,
-                            );
-                          }
-                        },
-                      ),
-                      SizedBox(height: AppDimensions.spacingMd.height(context)),
-                      AccountSelectorWidget(
-                        accounts: widget.accounts,
-                        selectedAccount: widget.accounts.first,
-                      ),
-                      SizedBox(height: AppDimensions.spacingMd.height(context)),
-                      BlocBuilder<SendMoneyBloc, SendMoneyState>(
-                        buildWhen: (previous, current) =>
-                            previous.selectedAccount != current.selectedAccount,
-                        builder: (context, state) {
-                          return CurrencySelectorWidget(
-                            selectedAccount: state.selectedAccount,
-                          );
-                        },
-                      ),
-                      SizedBox(height: AppDimensions.spacingMd.height(context)),
-                      BlocBuilder<SendMoneyBloc, SendMoneyState>(
-                        buildWhen: (previous, current) =>
-                            previous.selectedAccount !=
-                                current.selectedAccount ||
-                            previous.selectedCurrencyIndex !=
-                                current.selectedCurrencyIndex,
-                        builder: (context, state) {
-                          double? maxAmount;
-                          String? currency;
-                          if (state.selectedAccount != null &&
-                              state.selectedAccount!.currencyBalances != null &&
-                              state
-                                  .selectedAccount!
-                                  .currencyBalances!
-                                  .isNotEmpty) {
-                            final selectedCurrency = state
-                                .selectedAccount!
-                                .currencyBalances![state.selectedCurrencyIndex];
-                            maxAmount = selectedCurrency.balance;
-                            currency = selectedCurrency.currency.currency;
-                          }
-                          return AmountInputWidget(
-                            amountController: _amountController,
-                            maxAmount: maxAmount,
-                            currency: currency,
-                          );
-                        },
-                      ),
-                      const Spacer(),
-                      BlocBuilder<SendMoneyBloc, SendMoneyState>(
-                        buildWhen: (previous, current) =>
-                            previous.selectedAccount !=
-                                current.selectedAccount ||
-                            previous.selectedBeneficiary !=
-                                current.selectedBeneficiary ||
-                            previous.selectedCurrencyIndex !=
-                                current.selectedCurrencyIndex ||
-                            previous.useBeneficiary != current.useBeneficiary,
-                        builder: (context, state) {
-                          return AppButton(
-                            text: 'Confirm Send Money',
-                            onPressed: () {
-                              if (_formKey.currentState!.validate() &&
-                                  state.selectedAccount != null) {
-                                final selectedCurrency =
-                                    state
-                                        .selectedAccount!
-                                        .currencyBalances![state
-                                        .selectedCurrencyIndex];
+                          },
+                        ),
+                        SizedBox(
+                          height: AppDimensions.spacingXl.height(context),
+                        ),
+                        BlocBuilder<SendMoneyBloc, SendMoneyState>(
+                          buildWhen: (previous, current) =>
+                              previous.selectedAccount !=
+                                  current.selectedAccount ||
+                              previous.selectedBeneficiary !=
+                                  current.selectedBeneficiary ||
+                              previous.selectedCurrencyIndex !=
+                                  current.selectedCurrencyIndex ||
+                              previous.useBeneficiary != current.useBeneficiary,
+                          builder: (context, state) {
+                            return AppButton(
+                              text: 'Confirm Send Money',
+                              onPressed: () {
+                                if (_formKey.currentState!.validate() &&
+                                    state.selectedAccount != null) {
+                                  final selectedCurrency =
+                                      state
+                                          .selectedAccount!
+                                          .currencyBalances![state
+                                          .selectedCurrencyIndex];
 
-                                final recipientId = state.useBeneficiary
-                                    ? state.selectedBeneficiary?.id ?? ''
-                                    : _cardIdController.text.trim();
+                                  final recipientId = state.useBeneficiary
+                                      ? state.selectedBeneficiary?.id ?? ''
+                                      : _cardIdController.text.trim();
 
-                                context.read<SendMoneyBloc>().add(
-                                  ConfirmSendMoneyEvent(
-                                    recipientAccountId: recipientId,
-                                    sourceAccountId: state.selectedAccount!.id,
-                                    currency:
-                                        selectedCurrency.currency.currency,
-                                    amount: double.parse(
-                                      _amountController.text,
+                                  context.read<SendMoneyBloc>().add(
+                                    ConfirmSendMoneyEvent(
+                                      recipientAccountId: recipientId,
+                                      sourceAccountId:
+                                          state.selectedAccount!.id,
+                                      currency:
+                                          selectedCurrency.currency.currency,
+                                      amount: double.parse(
+                                        _amountController.text,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              }
-                            },
-                          );
-                        },
-                      ),
-                      SizedBox(height: AppDimensions.spacingMd.height(context)),
-                    ],
-                  ),
-                );
-              },
+                                  );
+                                }
+                              },
+                            );
+                          },
+                        ),
+                        SizedBox(
+                          height: AppDimensions.spacingMd.height(context),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),
