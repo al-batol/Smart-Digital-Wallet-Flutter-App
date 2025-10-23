@@ -1,5 +1,6 @@
 import 'package:smart_digital_wallet/src/core/common/result/exceptions.dart';
 import 'package:smart_digital_wallet/src/core/common/services/api_client_service.dart';
+import 'package:smart_digital_wallet/src/core/common/services/network_connectivity_service.dart';
 import 'package:smart_digital_wallet/src/core/features/top_up/data/models/top_up_model.dart';
 
 abstract class TopUpRemoteDataSource {
@@ -12,8 +13,12 @@ abstract class TopUpRemoteDataSource {
 
 class TopUpRemoteDataSourceImp implements TopUpRemoteDataSource {
   final ApiClientService apiClientService;
+  final NetworkConnectivityService networkConnectivityService;
 
-  TopUpRemoteDataSourceImp({required this.apiClientService});
+  TopUpRemoteDataSourceImp({
+    required this.apiClientService,
+    required this.networkConnectivityService,
+  });
 
   @override
   Future<TopUpModel> topUp({
@@ -22,6 +27,10 @@ class TopUpRemoteDataSourceImp implements TopUpRemoteDataSource {
     required String accountId,
   }) async {
     try {
+      await networkConnectivityService.checkConnection(
+        TopUpException(message: 'Check your internet connection'),
+      );
+
       final topUpModel = TopUpModel(
         amount: amount,
         currency: currency,

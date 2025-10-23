@@ -1,6 +1,7 @@
 import 'package:smart_digital_wallet/src/core/common/mocked_data/beneficiaries_mock.dart';
 import 'package:smart_digital_wallet/src/core/common/result/exceptions.dart';
 import 'package:smart_digital_wallet/src/core/common/services/api_client_service.dart';
+import 'package:smart_digital_wallet/src/core/common/services/network_connectivity_service.dart';
 import 'package:smart_digital_wallet/src/core/features/send_money/data/models/beneficiary_model.dart';
 import 'package:smart_digital_wallet/src/core/features/send_money/data/models/transfer_model.dart';
 
@@ -12,12 +13,20 @@ abstract class SendMoneyRemoteDataSource {
 
 class SendMoneyRemoteDataSourceImp implements SendMoneyRemoteDataSource {
   final ApiClientService apiClientService;
+  final NetworkConnectivityService networkConnectivityService;
 
-  SendMoneyRemoteDataSourceImp({required this.apiClientService});
+  SendMoneyRemoteDataSourceImp({
+    required this.apiClientService,
+    required this.networkConnectivityService,
+  });
 
   @override
   Future<List<BeneficiaryModel>> getBeneficiaries() async {
     try {
+      await networkConnectivityService.checkConnection(
+        SendMoneyException(message: 'Check your internet connection'),
+      );
+
       await apiClientService.get('https://api.com/beneficiaries');
 
       return beneficiariesMock
@@ -31,6 +40,10 @@ class SendMoneyRemoteDataSourceImp implements SendMoneyRemoteDataSource {
   @override
   Future<void> sendMoney(TransferModel transfer) async {
     try {
+      await networkConnectivityService.checkConnection(
+        SendMoneyException(message: 'Check your internet connection'),
+      );
+
       await apiClientService.post(
         'https://api.com/send-money',
         transfer.toJson(),

@@ -1,6 +1,8 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:smart_digital_wallet/src/core/common/services/api_client_service.dart';
+import 'package:smart_digital_wallet/src/core/common/services/network_connectivity_service.dart';
 import 'package:smart_digital_wallet/src/core/common/services/secure_storage_service.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/data/data_sources/auth_remote_data_source.dart';
@@ -43,8 +45,12 @@ void init() {
     ..registerLazySingleton<FlutterSecureStorage>(
       () => const FlutterSecureStorage(),
     )
+    ..registerLazySingleton<Connectivity>(() => Connectivity())
     ..registerLazySingleton<SecureStorageService>(
       () => SecureStorageService(storage: sl()),
+    )
+    ..registerLazySingleton<NetworkConnectivityService>(
+      () => NetworkConnectivityService(connectivity: sl()),
     )
     ..registerLazySingleton<ApiClientService>(() => ApiClientService())
     // blocs
@@ -79,19 +85,34 @@ void init() {
     )
     // remote data sources
     ..registerLazySingleton<AuthRemoteDataSource>(
-      () => AuthRemoteDataSourceImp(apiClientService: sl()),
+      () => AuthRemoteDataSourceImp(
+        apiClientService: sl(),
+        networkConnectivityService: sl(),
+      ),
     )
     ..registerLazySingleton<DashboardRemoteDataScource>(
-      () => DashboardRemoteDataScourceImp(apiClientService: sl()),
+      () => DashboardRemoteDataScourceImp(
+        apiClientService: sl(),
+        networkConnectivityService: sl(),
+      ),
     )
     ..registerLazySingleton<TopUpRemoteDataSource>(
-      () => TopUpRemoteDataSourceImp(apiClientService: sl()),
+      () => TopUpRemoteDataSourceImp(
+        apiClientService: sl(),
+        networkConnectivityService: sl(),
+      ),
     )
     ..registerLazySingleton<SendMoneyRemoteDataSource>(
-      () => SendMoneyRemoteDataSourceImp(apiClientService: sl()),
+      () => SendMoneyRemoteDataSourceImp(
+        apiClientService: sl(),
+        networkConnectivityService: sl(),
+      ),
     )
     ..registerLazySingleton<PayBillRemoteDataSource>(
-      () => PayBillRemoteDataSourceImp(apiClientService: sl()),
+      () => PayBillRemoteDataSourceImp(
+        apiClientService: sl(),
+        networkConnectivityService: sl(),
+      ),
     )
     // repositories
     ..registerLazySingleton<AuthRepository>(
