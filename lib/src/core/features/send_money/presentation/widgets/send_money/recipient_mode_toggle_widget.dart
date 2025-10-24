@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
@@ -45,7 +47,7 @@ class RecipientModeToggleWidget extends StatelessWidget {
                     ),
                     child: Center(
                       child: TextWidgetLg(
-                        text: 'Enter Card ID',
+                        text: context.translate(enterCardId),
                         textColor: !state.useBeneficiary
                             ? Colors.white
                             : textSecondaryColor,
@@ -75,7 +77,7 @@ class RecipientModeToggleWidget extends StatelessWidget {
                     ),
                     child: Center(
                       child: TextWidgetLg(
-                        text: 'Beneficiaries',
+                        text: context.translate(beneficiaries),
                         textColor: state.useBeneficiary
                             ? Colors.white
                             : textSecondaryColor,

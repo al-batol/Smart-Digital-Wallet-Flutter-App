@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart'
     as colors;
@@ -29,7 +31,7 @@ class TransactionsListWidget extends StatelessWidget {
             ),
             child: Center(
               child: TextWidgetSm(
-                text: 'No transactions yet',
+                text: context.translate(noTransactionsYet),
                 textColor: colors.textSecondaryColor,
               ),
             ),
@@ -40,7 +42,7 @@ class TransactionsListWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextWidgetMd(
-              text: 'Last Transactions',
+              text: context.translate(lastTransactions),
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: AppDimensions.spacingMd.height(context)),

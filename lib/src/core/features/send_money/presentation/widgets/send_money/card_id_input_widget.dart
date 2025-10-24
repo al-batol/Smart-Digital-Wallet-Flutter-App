@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
 import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
@@ -14,8 +16,8 @@ class CardIdInputWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TextWidgetLg(
-          text: 'Recipient Card ID',
+        TextWidgetLg(
+          text: context.translate(recipientCardId),
           textColor: textHeadlineColor,
         ),
         SizedBox(height: AppDimensions.spacingSm.height(context)),
@@ -23,7 +25,7 @@ class CardIdInputWidget extends StatelessWidget {
           controller: cardIdController,
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
-            hintText: 'Enter card ID',
+            hintText: context.translate(enterCardIdPlaceholder),
             hintStyle: const TextStyle(color: hintTextFieldColor),
             border: OutlineInputBorder(
               borderSide: BorderSide(
@@ -56,10 +58,10 @@ class CardIdInputWidget extends StatelessWidget {
           ),
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
-              return 'Please enter recipient card ID';
+              return context.translate(enterRecipientCardId);
             }
             if (value.length != 16) {
-              return 'Please enter a valid 16-digit card ID';
+              return context.translate(valid16DigitCardId);
             }
             return null;
           },

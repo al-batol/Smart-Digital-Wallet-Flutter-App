@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
@@ -48,7 +50,10 @@ class _TopUpViewState extends State<TopUpView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const TextWidgetXl(text: 'Top Up', textColor: textHeadlineColor),
+        title: TextWidgetXl(
+          text: context.translate(topUp),
+          textColor: textHeadlineColor,
+        ),
         backgroundColor: primaryColor.withValues(alpha: 0.15),
       ),
       body: BlocListener<TopUpBloc, TopUpState>(
@@ -68,7 +73,10 @@ class _TopUpViewState extends State<TopUpView> {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                failureSnackBar(title: 'Error!', message: state.errorMessage),
+                failureSnackBar(
+                  title: context.translate(error),
+                  message: context.translate(state.errorMessage),
+                ),
               );
           }
           if (state.isSuccess && state.topUpResult != null) {
@@ -76,7 +84,7 @@ class _TopUpViewState extends State<TopUpView> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 successSnackBar(
-                  title: 'Success!',
+                  title: context.translate(success),
                   message: state.topUpResult!.message,
                 ),
               );
@@ -121,7 +129,7 @@ class _TopUpViewState extends State<TopUpView> {
                               current.selectedCurrencyIndex,
                       builder: (context, state) {
                         return AppButton(
-                          text: 'Confirm Top Up',
+                          text: context.translate(confirmTopUp),
                           onPressed: () {
                             if (_formKey.currentState!.validate() &&
                                 state.selectedAccount != null) {

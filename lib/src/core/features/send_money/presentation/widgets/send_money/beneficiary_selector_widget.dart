@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/format_helper.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/dropdown_selector_widget.dart';
@@ -17,8 +19,8 @@ class BeneficiarySelectorWidget extends StatelessWidget {
           previous.selectedBeneficiary != current.selectedBeneficiary,
       builder: (context, state) {
         return DropdownSelectorWidget<BeneficiaryEntity>(
-          title: 'Select Beneficiary',
-          subtitle: 'Choose who to send money to',
+          title: context.translate(selectBeneficiary),
+          subtitle: context.translate(chooseWhoToSendMoney),
           selectedValue: state.selectedBeneficiary,
           items: beneficiaries,
           displayText: (beneficiary) => FormatHelper.formatAccountDisplay(

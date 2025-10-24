@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
@@ -57,7 +58,7 @@ class ServiceWidget extends StatelessWidget {
               fit: BoxFit.contain,
             ),
           ),
-          TextWidgetSm(text: service.name),
+          TextWidgetSm(text: context.translate(service.name)),
         ],
       ),
     );

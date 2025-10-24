@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
@@ -54,8 +56,8 @@ class _PayBillViewState extends State<PayBillView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const TextWidgetXl(
-          text: 'Pay Bill',
+        title: TextWidgetXl(
+          text: context.translate(payBill),
           textColor: textHeadlineColor,
         ),
         backgroundColor: primaryColor.withValues(alpha: 0.15),
@@ -77,7 +79,10 @@ class _PayBillViewState extends State<PayBillView> {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                failureSnackBar(title: 'Error!', message: state.errorMessage),
+                failureSnackBar(
+                  title: context.translate(error),
+                  message: context.translate(state.errorMessage),
+                ),
               );
           }
           if (state.isSuccess && state.paymentResult != null) {
@@ -89,7 +94,7 @@ class _PayBillViewState extends State<PayBillView> {
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
                   successSnackBar(
-                    title: 'Success!',
+                    title: context.translate(success),
                     message: state.paymentResult!.message,
                   ),
                 );
@@ -115,8 +120,8 @@ class _PayBillViewState extends State<PayBillView> {
                         SizedBox(
                           height: AppDimensions.spacingMd.height(context),
                         ),
-                        const TextWidgetLg(
-                          text: 'Bill Number',
+                        TextWidgetLg(
+                          text: context.translate(billNumber),
                           textColor: textHeadlineColor,
                         ),
                         SizedBox(
@@ -126,7 +131,9 @@ class _PayBillViewState extends State<PayBillView> {
                           controller: _billNumberController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            hintText: 'Enter your bill number',
+                            hintText: context.translate(
+                              'enter_bill_number_placeholder',
+                            ),
                             hintStyle: const TextStyle(
                               color: hintTextFieldColor,
                             ),
@@ -161,7 +168,7 @@ class _PayBillViewState extends State<PayBillView> {
                           ),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
-                              return 'Please enter bill number';
+                              return context.translate(enterBillNumber);
                             }
                             return null;
                           },
@@ -202,7 +209,7 @@ class _PayBillViewState extends State<PayBillView> {
                               current.selectedBillType,
                           builder: (context, state) {
                             return AppButton(
-                              text: 'Pay Bill',
+                              text: context.translate(payBill),
                               onPressed: () {
                                 if (_formKey.currentState!.validate() &&
                                     state.selectedBillType != null &&

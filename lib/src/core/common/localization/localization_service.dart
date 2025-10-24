@@ -22,13 +22,13 @@ class AppLocalization {
   late Map<String, String> _localizedValues;
 
   Future<void> load() async {
-    // String jsonStringValues = await rootBundle.loadString(
-    //   'assets/i18n/${locale.languageCode}.json',
-    // );
-    // Map<String, dynamic> mappedJson = json.decode(jsonStringValues);
-    // _localizedValues = mappedJson.map(
-    //   (key, value) => MapEntry(key, value.toString()),
-    // );
+    String jsonStringValues = await rootBundle.loadString(
+      'assets/i18n/${locale.languageCode}.json',
+    );
+    Map<String, dynamic> mappedJson = json.decode(jsonStringValues);
+    _localizedValues = mappedJson.map(
+      (key, value) => MapEntry(key, value.toString()),
+    );
   }
 
   String translate(String? key) {

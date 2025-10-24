@@ -24,7 +24,7 @@ class SendMoneyRemoteDataSourceImp implements SendMoneyRemoteDataSource {
   Future<List<BeneficiaryModel>> getBeneficiaries() async {
     try {
       await networkConnectivityService.checkConnection(
-        SendMoneyException(message: 'Check your internet connection'),
+        SendMoneyException(message: 'check_internet_connection'),
       );
 
       await apiClientService.get('https://api.com/beneficiaries');
@@ -41,7 +41,7 @@ class SendMoneyRemoteDataSourceImp implements SendMoneyRemoteDataSource {
   Future<void> sendMoney(TransferModel transfer) async {
     try {
       await networkConnectivityService.checkConnection(
-        SendMoneyException(message: 'Check your internet connection'),
+        SendMoneyException(message: 'check_internet_connection'),
       );
 
       await apiClientService.post(

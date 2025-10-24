@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart'
     as colors;
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
@@ -55,9 +56,11 @@ class TransactionItemWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextWidgetMd(
-                    text: _getTypeLabel(transaction.type),
-                    fontWeight: FontWeight.w600,
+                  Builder(
+                    builder: (context) => TextWidgetMd(
+                      text: context.translate(_getTypeLabel(transaction.type)),
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   SizedBox(height: 2),
                   TextWidgetSm(
@@ -81,13 +84,13 @@ class TransactionItemWidget extends StatelessWidget {
   String _getTypeLabel(String? type) {
     switch (type) {
       case 'topup':
-        return 'Top Up';
+        return 'top_up';
       case 'sendmoney':
-        return 'Send Money';
+        return 'send_money';
       case 'paybill':
-        return 'Pay Bill';
+        return 'pay_bill';
       default:
-        return 'Transaction';
+        return 'transaction';
     }
   }
 

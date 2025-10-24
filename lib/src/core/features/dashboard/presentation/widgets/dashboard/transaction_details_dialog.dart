@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart'
     as colors;
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
@@ -28,7 +30,7 @@ class TransactionDetailsDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextWidgetLg(
-                  text: 'Transaction Details',
+                  text: context.translate(transactionDetails),
                   fontWeight: FontWeight.bold,
                 ),
                 IconButton(
@@ -40,24 +42,41 @@ class TransactionDetailsDialog extends StatelessWidget {
               ],
             ),
             SizedBox(height: AppDimensions.spacingMd.height(context)),
-            _buildDetailRow('Type', _getTypeLabel(transaction.type)),
             _buildDetailRow(
-              'Amount',
+              context.translate(type),
+              context.translate(_getTypeLabel(transaction.type)),
+            ),
+            _buildDetailRow(
+              context.translate(amount),
               '${transaction.amount} ${transaction.currency}',
             ),
-            _buildDetailRow('Account ID', transaction.accountId ?? '-'),
+            _buildDetailRow(
+              context.translate(accountId),
+              transaction.accountId ?? '-',
+            ),
             if (transaction.type == 'sendmoney') ...[
               _buildDetailRow(
-                'Recipient ID',
+                context.translate(recipientId),
                 transaction.recipientAccountId ?? '-',
               ),
             ],
             if (transaction.type == 'paybill') ...[
-              _buildDetailRow('Bill Type', transaction.billType ?? '-'),
-              _buildDetailRow('Bill Number', transaction.billNumber ?? '-'),
+              _buildDetailRow(
+                context.translate(billType),
+                transaction.billType != null
+                    ? context.translate(transaction.billType!)
+                    : '-',
+              ),
+              _buildDetailRow(
+                context.translate(billNumber),
+                transaction.billNumber ?? '-',
+              ),
             ],
             if (transaction.id != null)
-              _buildDetailRow('Transaction ID', transaction.id!),
+              _buildDetailRow(
+                context.translate(transactionId),
+                transaction.id!,
+              ),
           ],
         ),
       ),
@@ -89,13 +108,13 @@ class TransactionDetailsDialog extends StatelessWidget {
   String _getTypeLabel(String? type) {
     switch (type) {
       case 'topup':
-        return 'Top Up';
+        return 'top_up';
       case 'sendmoney':
-        return 'Send Money';
+        return 'send_money';
       case 'paybill':
-        return 'Pay Bill';
+        return 'pay_bill';
       default:
-        return 'Transaction';
+        return 'transaction';
     }
   }
 }

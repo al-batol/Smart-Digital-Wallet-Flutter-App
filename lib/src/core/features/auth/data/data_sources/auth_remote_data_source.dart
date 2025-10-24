@@ -26,7 +26,7 @@ class AuthRemoteDataSourceImp extends AuthRemoteDataSource {
   }) async {
     try {
       await networkConnectivityService.checkConnection(
-        AuthException(message: 'Check your internet connection'),
+        AuthException(message: 'check_internet_connection'),
       );
 
       await apiClientService.post('https://api.com/auth/signin', {
@@ -36,7 +36,7 @@ class AuthRemoteDataSourceImp extends AuthRemoteDataSource {
       if (email == testEmail && password == testPassword) {
         return generateToken();
       } else {
-        throw AuthException(message: "Invalid email or password");
+        throw AuthException(message: "invalid_email_or_password");
       }
     } on AuthException {
       rethrow;

@@ -3,6 +3,8 @@ import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
 import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/regx.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/presentation/widgets/signin/title_subtitle.dart';
 
 class EmailFormField extends StatelessWidget {
@@ -14,11 +16,14 @@ class EmailFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TitleSubtitle(title: 'Enter Your Email', subtitle: 'Email'),
+        TitleSubtitle(
+          title: context.translate(enterYourEmail),
+          subtitle: context.translate(email),
+        ),
         TextFormField(
           controller: emailController,
           decoration: InputDecoration(
-            hintText: 'example@domain.com',
+            hintText: context.translate(emailPlaceholder),
             hintStyle: TextStyle(color: hintTextFieldColor),
             border: OutlineInputBorder(
               borderSide: BorderSide(
@@ -51,9 +56,9 @@ class EmailFormField extends StatelessWidget {
           ),
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Email is required';
+              return context.translate(emailRequired);
             } else if (!emailReg.hasMatch(value)) {
-              return 'Invalid email';
+              return context.translate(invalidEmail);
             }
             return null;
           },

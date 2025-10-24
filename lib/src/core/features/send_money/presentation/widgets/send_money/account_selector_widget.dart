@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/format_helper.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/dropdown_selector_widget.dart';
@@ -23,8 +25,8 @@ class AccountSelectorWidget extends StatelessWidget {
       builder: (context, state) {
         final currentAccount = state.selectedAccount ?? selectedAccount;
         return DropdownSelectorWidget<AccountEntity>(
-          title: 'Select Account',
-          subtitle: 'Choose which account to send from',
+          title: context.translate(selectAccount),
+          subtitle: context.translate(chooseAccountToSendFrom),
           selectedValue: currentAccount,
           items: accounts,
           displayText: (account) =>

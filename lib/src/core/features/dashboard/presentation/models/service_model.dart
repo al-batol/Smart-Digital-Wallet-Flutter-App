@@ -13,12 +13,12 @@ class ServiceModel {
   });
 
   static List<ServiceModel> get services => [
-    ServiceModel(name: 'Top Up', icon: topUpImg, routeName: topUpRoute),
+    ServiceModel(name: 'top_up', icon: topUpImg, routeName: topUpRoute),
     ServiceModel(
-      name: 'Send Money',
+      name: 'send_money',
       icon: sendMoneyImg,
       routeName: sendMoneyRoute,
     ),
-    ServiceModel(name: 'Pay Bill', icon: payBillImg, routeName: payBillRoute),
+    ServiceModel(name: 'pay_bill', icon: payBillImg, routeName: payBillRoute),
   ];
 }

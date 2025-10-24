@@ -28,7 +28,7 @@ class TopUpRemoteDataSourceImp implements TopUpRemoteDataSource {
   }) async {
     try {
       await networkConnectivityService.checkConnection(
-        TopUpException(message: 'Check your internet connection'),
+        TopUpException(message: 'check_internet_connection'),
       );
 
       final topUpModel = TopUpModel(

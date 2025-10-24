@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
@@ -23,14 +25,14 @@ class CurrencySelectorWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TextWidgetMd(
-          text: 'Select Currency',
+        TextWidgetMd(
+          text: context.translate(selectCurrency),
           textColor: textHeadlineColor,
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: AppDimensions.spacingSm.height(context)),
-        const TextWidgetSm(
-          text: 'Choose which currency to top up',
+        TextWidgetSm(
+          text: context.translate(chooseCurrencyToTopUp),
           textColor: textSecondaryColor,
         ),
         SizedBox(height: AppDimensions.spacingSm.height(context)),

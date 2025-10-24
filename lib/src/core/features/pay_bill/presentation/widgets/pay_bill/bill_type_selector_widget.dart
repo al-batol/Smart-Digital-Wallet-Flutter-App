@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_digital_wallet/src/core/common/mocked_data/bill_types_mock.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/dropdown_selector_widget.dart';
@@ -21,11 +23,11 @@ class BillTypeSelectorWidget extends StatelessWidget {
           previous.selectedBillType != current.selectedBillType,
       builder: (context, state) {
         return DropdownSelectorWidget<BillTypeEntity>(
-          title: 'Select Bill Type',
-          subtitle: 'Choose the bill you want to pay',
+          title: context.translate(selectBillType),
+          subtitle: context.translate(chooseBillToPay),
           selectedValue: state.selectedBillType ?? billTypes.first,
           items: billTypes,
-          displayText: (billType) => billType.billType,
+          displayText: (billType) => context.translate(billType.billType),
           onChanged: (BillTypeEntity? newBillType) {
             if (newBillType != null) {
               context.read<PayBillBloc>().add(

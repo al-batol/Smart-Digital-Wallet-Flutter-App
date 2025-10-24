@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
 import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_md.dart';
@@ -13,7 +15,10 @@ class ServicesSectionWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TextWidgetMd(text: 'Services', fontWeight: FontWeight.bold),
+        TextWidgetMd(
+          text: context.translate(services),
+          fontWeight: FontWeight.bold,
+        ),
         SizedBox(height: AppDimensions.spacingMd.height(context)),
         Row(
           spacing: AppDimensions.spacingMd.width(context),

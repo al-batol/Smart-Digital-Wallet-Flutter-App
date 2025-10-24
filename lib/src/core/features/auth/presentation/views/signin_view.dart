@@ -7,6 +7,8 @@ import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions
 import 'package:smart_digital_wallet/src/core/common/helper/loading_dialog.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/responsive_helper.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/snack_bars.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:smart_digital_wallet/src/core/common/routes/app_route_names.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/app_button.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_xl.dart';
@@ -46,7 +48,10 @@ class _SignInViewState extends State<SignInView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextWidgetXl(text: 'Sign In', textColor: textHeadlineColor),
+        title: TextWidgetXl(
+          text: context.translate(signIn),
+          textColor: textHeadlineColor,
+        ),
         backgroundColor: primaryColor.withValues(alpha: 0.15),
       ),
       body: BlocListener<AuthBloc, AuthState>(
@@ -66,7 +71,10 @@ class _SignInViewState extends State<SignInView> {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                failureSnackBar(title: 'Error!', message: state.errorMessage),
+                failureSnackBar(
+                  title: context.translate(error),
+                  message: context.translate(state.errorMessage),
+                ),
               );
           }
           if (state.isLoggedIn) {
@@ -74,8 +82,8 @@ class _SignInViewState extends State<SignInView> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 successSnackBar(
-                  title: 'Success!',
-                  message: 'Logged in successfully',
+                  title: context.translate(success),
+                  message: context.translate(loggedInSuccessfully),
                 ),
               );
             if (context.mounted) {
@@ -113,7 +121,7 @@ class _SignInViewState extends State<SignInView> {
                           height: AppDimensions.spacingXl.height(context),
                         ),
                         AppButton(
-                          text: 'Sign In',
+                          text: context.translate(signIn),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               context.read<AuthBloc>().add(

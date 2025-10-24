@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:flutter/services.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
@@ -23,8 +25,8 @@ class AmountInputWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TextWidgetMd(
-          text: 'Enter Amount',
+        TextWidgetMd(
+          text: context.translate(enterAmount),
           textColor: textHeadlineColor,
           fontWeight: FontWeight.w600,
         ),
@@ -32,10 +34,14 @@ class AmountInputWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const TextWidgetSm(text: 'Amount', textColor: textSecondaryColor),
+            TextWidgetSm(
+              text: context.translate(amountLabel),
+              textColor: textSecondaryColor,
+            ),
             if (maxAmount != null && currency != null)
               TextWidgetSm(
-                text: 'Available: ${maxAmount!.toStringAsFixed(2)} $currency',
+                text:
+                    '${context.translate(available)}: ${maxAmount!.toStringAsFixed(2)} $currency',
                 textColor: textSecondaryColor,
               ),
           ],
@@ -48,7 +54,7 @@ class AmountInputWidget extends StatelessWidget {
             FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
           ],
           decoration: InputDecoration(
-            hintText: '0.00',
+            hintText: context.translate(amountPlaceholder),
             hintStyle: const TextStyle(color: hintTextFieldColor),
             border: OutlineInputBorder(
               borderSide: BorderSide(
@@ -81,17 +87,17 @@ class AmountInputWidget extends StatelessWidget {
           ),
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Amount is required';
+              return context.translate(amountRequired);
             }
             final amount = double.tryParse(value);
             if (amount == null) {
-              return 'Invalid amount';
+              return context.translate(invalidAmount);
             }
             if (amount <= 0) {
-              return 'Amount must be greater than 0';
+              return context.translate(amountGreaterThanZero);
             }
             if (maxAmount != null && amount > maxAmount!) {
-              return 'Insufficient balance. Max: ${maxAmount!.toStringAsFixed(2)}';
+              return '${context.translate(insufficientBalanceMax)}: ${maxAmount!.toStringAsFixed(2)}';
             }
             return null;
           },

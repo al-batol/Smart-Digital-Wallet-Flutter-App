@@ -5,6 +5,8 @@ import 'package:smart_digital_wallet/src/core/common/constants/app_constants.dar
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
 import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/regx.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/svg_image.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/presentation/bloc/bloc/auth_bloc.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/presentation/widgets/signin/title_subtitle.dart';
@@ -18,7 +20,10 @@ class PasswordFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TitleSubtitle(title: 'Enter Your Password', subtitle: 'Password'),
+        TitleSubtitle(
+          title: context.translate(enterYourPassword),
+          subtitle: context.translate(password),
+        ),
         BlocBuilder<AuthBloc, AuthState>(
           buildWhen: (previous, current) =>
               previous.isPasswordVisible != current.isPasswordVisible,
@@ -27,7 +32,7 @@ class PasswordFormField extends StatelessWidget {
               controller: passwordController,
               obscureText: !state.isPasswordVisible,
               decoration: InputDecoration(
-                hintText: 'At least 8 characters',
+                hintText: context.translate(passwordPlaceholder),
                 hintStyle: TextStyle(color: hintTextFieldColor),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -81,9 +86,9 @@ class PasswordFormField extends StatelessWidget {
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Password is required';
+                  return context.translate(passwordRequired);
                 } else if (!passwordReg.hasMatch(value)) {
-                  return 'Invalid password';
+                  return context.translate(invalidPassword);
                 }
                 return null;
               },

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
 import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
@@ -34,7 +36,7 @@ class DashboardHeaderWidget extends StatelessWidget {
                 ),
               ),
               TextWidgetSm(
-                text: 'Hello\n$userName',
+                text: '${context.translate(hello)}\n$userName',
                 fontWeight: FontWeight.w600,
               ),
             ],

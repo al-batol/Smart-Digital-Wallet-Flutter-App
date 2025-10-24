@@ -20,7 +20,7 @@ class PayBillRemoteDataSourceImp implements PayBillRemoteDataSource {
   Future<void> payBill(PaymentModel payment) async {
     try {
       await networkConnectivityService.checkConnection(
-        PayBillException(message: 'Check your internet connection'),
+        PayBillException(message: 'check_internet_connection'),
       );
 
       await apiClientService.post('https://api.com/pay-bill', payment.toJson());

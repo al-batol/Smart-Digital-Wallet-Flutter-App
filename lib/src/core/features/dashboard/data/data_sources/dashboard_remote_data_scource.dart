@@ -33,7 +33,7 @@ class DashboardRemoteDataScourceImp implements DashboardRemoteDataScource {
   }) async {
     try {
       await networkConnectivityService.checkConnection(
-        DashboardException(message: 'Check your internet connection'),
+        DashboardException(message: 'check_internet_connection'),
       );
 
       apiClientService.post('https://api.com/dashboard/currency-exchange', {
@@ -51,7 +51,7 @@ class DashboardRemoteDataScourceImp implements DashboardRemoteDataScource {
   Future<AccountsModel> getAccounts() async {
     try {
       await networkConnectivityService.checkConnection(
-        DashboardException(message: 'Check your internet connection'),
+        DashboardException(message: 'check_internet_connection'),
       );
 
       await apiClientService.get('https://api.com/dashboard/accounts');

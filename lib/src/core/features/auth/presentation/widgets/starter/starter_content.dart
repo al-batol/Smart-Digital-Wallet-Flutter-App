@@ -4,6 +4,8 @@ import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_constants.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
 import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:smart_digital_wallet/src/core/common/routes/app_route_names.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/svg_image.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_3xl.dart';
@@ -22,17 +24,22 @@ class StarterContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Spacer(),
-          TextWidget3xl(text: 'Digital Wallet', textColor: textHeadlineColor),
+          TextWidget3xl(
+            text: context.translate(digitalWallet),
+            textColor: textHeadlineColor,
+          ),
           SizedBox(height: AppDimensions.spacingMd.height(context)),
           SvgImage(path: sunImg),
           SizedBox(height: AppDimensions.spacingSm.height(context)),
           TextWidgetSm(
-            text:
-                'Open An Account For Smart Digital Wallet Solutions. Instant Payouts.',
+            text: context.translate(openAccountDescription),
             textColor: textSecondaryColor,
           ),
           SizedBox(height: AppDimensions.spacingMd.height(context)),
-          TextWidgetSm(text: 'Join For Free.', textColor: textSecondaryColor),
+          TextWidgetSm(
+            text: context.translate(joinForFree),
+            textColor: textSecondaryColor,
+          ),
           const Spacer(),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -50,17 +57,17 @@ class StarterContent extends StatelessWidget {
               context.push(signInRoute);
             },
             child: TextWidgetMd(
-              text: 'Get Started',
+              text: context.translate(getStarted),
               textColor: textButtonColor,
             ),
           ),
           SizedBox(height: AppDimensions.spacingLg.height(context)),
           TextWidgetMd(
-            text: 'Don\'t have an account?',
+            text: context.translate(dontHaveAccount),
             textColor: textButtonColor.withValues(alpha: 0.8),
           ),
           TextWidgetMd(
-            text: 'Contact Us',
+            text: context.translate(contactUs),
             textColor: primaryColor.withValues(alpha: 0.9),
           ),
           SizedBox(height: AppDimensions.spacingLg.height(context)),

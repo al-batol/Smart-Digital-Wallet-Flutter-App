@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_colors.dart';
@@ -56,8 +58,8 @@ class _SendMoneyViewState extends State<SendMoneyView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const TextWidgetXl(
-          text: 'Send Money',
+        title: TextWidgetXl(
+          text: context.translate(sendMoney),
           textColor: textHeadlineColor,
         ),
         backgroundColor: primaryColor.withValues(alpha: 0.15),
@@ -79,7 +81,10 @@ class _SendMoneyViewState extends State<SendMoneyView> {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                failureSnackBar(title: 'Error!', message: state.errorMessage),
+                failureSnackBar(
+                  title: context.translate(error),
+                  message: context.translate(state.errorMessage),
+                ),
               );
           }
           if (state.isSuccess && state.sendMoneyResult != null) {
@@ -91,7 +96,7 @@ class _SendMoneyViewState extends State<SendMoneyView> {
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
                   successSnackBar(
-                    title: 'Success!',
+                    title: context.translate(success),
                     message: state.sendMoneyResult!.message,
                   ),
                 );
@@ -109,9 +114,9 @@ class _SendMoneyViewState extends State<SendMoneyView> {
                     previous.isLoading != current.isLoading,
                 builder: (context, state) {
                   if (state.isLoading && state.beneficiaries.isEmpty) {
-                    return const Center(
+                    return Center(
                       child: TextWidgetLg(
-                        text: 'Loading beneficiaries...',
+                        text: context.translate(loadingBeneficiaries),
                         textColor: textSecondaryColor,
                       ),
                     );
@@ -142,8 +147,10 @@ class _SendMoneyViewState extends State<SendMoneyView> {
                                 beneficiaries: state.beneficiaries,
                               );
                             } else {
-                              return const TextWidgetLg(
-                                text: 'No beneficiaries found',
+                              return TextWidgetLg(
+                                text: context.translate(
+                                  'no_beneficiaries_found',
+                                ),
                                 textColor: textSecondaryColor,
                               );
                             }
@@ -215,7 +222,7 @@ class _SendMoneyViewState extends State<SendMoneyView> {
                               previous.useBeneficiary != current.useBeneficiary,
                           builder: (context, state) {
                             return AppButton(
-                              text: 'Confirm Send Money',
+                              text: context.translate(confirmSendMoney),
                               onPressed: () {
                                 if (_formKey.currentState!.validate() &&
                                     state.selectedAccount != null) {
