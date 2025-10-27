@@ -20,7 +20,6 @@ import 'package:smart_digital_wallet/src/core/features/dashboard/data/data_sourc
 import 'package:smart_digital_wallet/src/core/features/dashboard/data/data_sources/dashboard_remote_data_scource.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/data/repository/dashbaord_repo_imp.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/repository/dashbaord_repository.dart';
-import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/currency_exchange_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/get_accounts_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/usecases/get_last_transactions_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/presentation/blocs/bloc/dashboard_bloc.dart';
@@ -43,6 +42,12 @@ import 'package:smart_digital_wallet/src/core/features/pay_bill/data/repository/
 import 'package:smart_digital_wallet/src/core/features/pay_bill/domain/repository/pay_bill_repository.dart';
 import 'package:smart_digital_wallet/src/core/features/pay_bill/domain/usecases/pay_bill_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/pay_bill/presentation/blocs/bloc/pay_bill_bloc.dart';
+import 'package:smart_digital_wallet/src/core/features/currency_exchange/data/data_sources/currency_exchange_local_data_source.dart';
+import 'package:smart_digital_wallet/src/core/features/currency_exchange/data/data_sources/currency_exchange_remote_data_source.dart';
+import 'package:smart_digital_wallet/src/core/features/currency_exchange/data/repository/currency_exchange_repo_imp.dart';
+import 'package:smart_digital_wallet/src/core/features/currency_exchange/domain/repository/currency_exchange_repository.dart';
+import 'package:smart_digital_wallet/src/core/features/currency_exchange/domain/usecases/currency_exchange_usecase.dart';
+import 'package:smart_digital_wallet/src/core/features/currency_exchange/presentation/blocs/bloc/currency_exchange_bloc.dart';
 
 final sl = GetIt.instance;
 Future<void> init() async {
@@ -75,10 +80,12 @@ Future<void> init() async {
     ..registerFactory<LocalizationCubit>(
       () => LocalizationCubit(sharedPreferences: sl(), locale: appLanguages[0]),
     )
-    ..registerFactory<AuthBloc>(() => AuthBloc(
-          signInUsecase: sl(),
-          authenticateWithBiometricsUsecase: sl(),
-        ))
+    ..registerFactory<AuthBloc>(
+      () => AuthBloc(
+        signInUsecase: sl(),
+        authenticateWithBiometricsUsecase: sl(),
+      ),
+    )
     ..registerFactory<DashboardBloc>(
       () => DashboardBloc(
         getAccountsUsecase: sl(),
@@ -91,6 +98,9 @@ Future<void> init() async {
           SendMoneyBloc(sendMoneyUsecase: sl(), getBeneficiariesUsecase: sl()),
     )
     ..registerFactory<PayBillBloc>(() => PayBillBloc(payBillUsecase: sl()))
+    ..registerFactory<CurrencyExchangeBloc>(
+      () => CurrencyExchangeBloc(currencyExchangeUsecase: sl()),
+    )
     // local data sources
     ..registerLazySingleton<AuthLocalDataSourse>(
       () => AuthLocalDataSourseImp(secureStorageService: sl()),
@@ -106,6 +116,9 @@ Future<void> init() async {
     )
     ..registerLazySingleton<PayBillLocalDataSource>(
       () => PayBillLocalDataSourceImp(),
+    )
+    ..registerLazySingleton<CurrencyExchangeLocalDataSource>(
+      () => CurrencyExchangeLocalDataSourceImp(),
     )
     // remote data sources
     ..registerLazySingleton<AuthRemoteDataSource>(
@@ -138,10 +151,16 @@ Future<void> init() async {
         networkConnectivityService: sl(),
       ),
     )
+    ..registerLazySingleton<CurrencyExchangeRemoteDataSource>(
+      () => CurrencyExchangeRemoteDataSourceImp(
+        apiClientService: sl(),
+        networkConnectivityService: sl(),
+      ),
+    )
     // repositories
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepoImp(
-        authRemoteDataSource: sl(), 
+        authRemoteDataSource: sl(),
         authLocalDataSourse: sl(),
         biometricService: sl(),
       ),
@@ -168,6 +187,12 @@ Future<void> init() async {
         payBillLocalDataSource: sl(),
       ),
     )
+    ..registerLazySingleton<CurrencyExchangeRepository>(
+      () => CurrencyExchangeRepoImp(
+        currencyExchangeRemoteDataSource: sl(),
+        currencyExchangeLocalDataSource: sl(),
+      ),
+    )
     // usecases
     ..registerLazySingleton<SignInUsecase>(
       () => SignInUsecase(authRepository: sl()),
@@ -181,9 +206,6 @@ Future<void> init() async {
     ..registerLazySingleton<GetLastTransactionsUsecase>(
       () => GetLastTransactionsUsecase(repository: sl()),
     )
-    ..registerLazySingleton<CurrencyExchangeUsecase>(
-      () => CurrencyExchangeUsecase(dashbaordRepository: sl()),
-    )
     ..registerLazySingleton<TopUpUsecase>(
       () => TopUpUsecase(topUpRepository: sl()),
     )
@@ -195,5 +217,8 @@ Future<void> init() async {
     )
     ..registerLazySingleton<PayBillUsecase>(
       () => PayBillUsecase(payBillRepository: sl()),
+    )
+    ..registerLazySingleton<CurrencyExchangeUsecase>(
+      () => CurrencyExchangeUsecase(currencyExchangeRepository: sl()),
     );
 }

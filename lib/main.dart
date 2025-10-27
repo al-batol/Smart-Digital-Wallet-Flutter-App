@@ -11,6 +11,7 @@ import 'package:smart_digital_wallet/src/core/features/auth/presentation/bloc/bl
 import 'package:smart_digital_wallet/src/core/features/top_up/data/models/top_up_model.dart';
 import 'package:smart_digital_wallet/src/core/features/send_money/data/models/transfer_model.dart';
 import 'package:smart_digital_wallet/src/core/features/pay_bill/data/models/payment_model.dart';
+import 'package:smart_digital_wallet/src/core/features/currency_exchange/data/models/currency_exchange_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,7 @@ void main() async {
   Hive.registerAdapter(TopUpModelAdapter());
   Hive.registerAdapter(TransferModelAdapter());
   Hive.registerAdapter(PaymentModelAdapter());
+  Hive.registerAdapter(CurrencyExchangeModelAdapter());
 
   await init();
   runApp(const MyApp());

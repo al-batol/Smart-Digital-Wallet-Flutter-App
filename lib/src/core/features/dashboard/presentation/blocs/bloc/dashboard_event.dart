@@ -19,7 +19,10 @@ class ToggleSelectedCurrencyEvent extends DashboardEvent {
   final int accountIndex;
   final int index;
 
-  const ToggleSelectedCurrencyEvent({required this.index, required this.accountIndex});
+  const ToggleSelectedCurrencyEvent({
+    required this.index,
+    required this.accountIndex,
+  });
 
   @override
   List<Object> get props => [index];

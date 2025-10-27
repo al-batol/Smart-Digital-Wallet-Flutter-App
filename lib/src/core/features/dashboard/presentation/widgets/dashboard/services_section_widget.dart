@@ -20,11 +20,14 @@ class ServicesSectionWidget extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
         SizedBox(height: AppDimensions.spacingMd.height(context)),
-        Row(
-          spacing: AppDimensions.spacingMd.width(context),
-          children: ServiceModel.services
-              .map((service) => ServiceWidget(service: service))
-              .toList(),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            spacing: AppDimensions.spacingMd.width(context),
+            children: ServiceModel.services
+                .map((service) => ServiceWidget(service: service))
+                .toList(),
+          ),
         ),
       ],
     );

@@ -20,24 +20,16 @@ class ServiceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        if (service.routeName == topUpRoute ||
-            service.routeName == sendMoneyRoute ||
-            service.routeName == payBillRoute) {
-          final state = context.read<DashboardBloc>().state;
-          if (state.accounts != null && state.accounts!.accounts.isNotEmpty) {
-            await context.push(
-              service.routeName,
-              extra: {'accounts': state.accounts!.accounts},
-            );
+        final state = context.read<DashboardBloc>().state;
+        if (state.accounts != null && state.accounts!.accounts.isNotEmpty) {
+          await context.push(
+            service.routeName,
+            extra: {'accounts': state.accounts!.accounts},
+          );
 
-            if (context.mounted) {
-              context.read<DashboardBloc>().add(
-                const GetLastTransactionsEvent(),
-              );
-            }
+          if (context.mounted) {
+            context.read<DashboardBloc>().add(const GetLastTransactionsEvent());
           }
-        } else {
-          context.push(service.routeName);
         }
       },
       child: Column(

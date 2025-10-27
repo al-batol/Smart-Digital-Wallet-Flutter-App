@@ -94,7 +94,23 @@
   "biometric_sign_in_title": "Sign in",
   "biometric_sign_in_hint": "Use your biometric to authenticate",
   "biometric_cancel_button": "Cancel",
-  "biometric_auth_failed": "Biometric authentication failed"
- 
+  "biometric_auth_failed": "Biometric authentication failed",
+  
+  "currency_exchange": "Currency Exchange",
+  "confirm_currency_exchange": "Confirm Exchange",
+  "from_account": "From Account",
+  "to_account": "To Account", 
+  "from_currency": "From Currency",
+  "to_currency": "To Currency",
+  "converted_amount": "Converted Amount",
+  "choose_account_to_exchange_from": "Choose which account to exchange from",
+  "choose_account_to_exchange_to": "Choose which account to exchange to",
+  "choose_currency_to_exchange_from": "Choose currency to exchange from",
+  "choose_currency_to_exchange_to": "Choose currency to exchange to",
+  "exchange_rate": "Exchange Rate",
+  "you_will_receive": "You will receive",
+  "exchange_not_allowed": "This currency exchange is not allowed",
+  "no_accounts_available": "No accounts available",
+  "recieved": "Recieved"
 }
 

@@ -28,7 +28,7 @@ class TopUpModelAdapter extends TypeAdapter<TopUpModel> {
   @override
   void write(BinaryWriter writer, TopUpModel obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -48,7 +48,19 @@ class TopUpModelAdapter extends TypeAdapter<TopUpModel> {
       ..writeByte(8)
       ..write(obj.number)
       ..writeByte(9)
-      ..write(obj.provider);
+      ..write(obj.provider)
+      ..writeByte(10)
+      ..write(obj.fromAccountId)
+      ..writeByte(11)
+      ..write(obj.toAccountId)
+      ..writeByte(12)
+      ..write(obj.fromCurrency)
+      ..writeByte(13)
+      ..write(obj.toCurrency)
+      ..writeByte(14)
+      ..write(obj.convertedAmount)
+      ..writeByte(15)
+      ..write(obj.exchangeRate);
   }
 
   @override

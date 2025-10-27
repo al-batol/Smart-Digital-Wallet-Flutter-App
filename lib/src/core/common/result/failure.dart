@@ -28,3 +28,7 @@ class SendMoneyFailure extends Failure {
 class PayBillFailure extends Failure {
   const PayBillFailure({required super.message});
 }
+
+class CurrencyExchangeFailure extends Failure {
+  const CurrencyExchangeFailure({required super.message});
+}

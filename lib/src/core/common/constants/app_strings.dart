@@ -30,6 +30,7 @@ const String services = 'services';
 const String topUp = 'top_up';
 const String sendMoney = 'send_money';
 const String payBill = 'pay_bill';
+const String currencyExchange = 'currency_exchange';
 const String lastTransactions = 'last_transactions';
 const String noTransactionsYet = 'no_transactions_yet';
 const String transaction = 'transaction';
@@ -108,3 +109,18 @@ const String biometricAuthFailed = 'biometric_auth_failed';
 // Errors
 const String checkInternetConnection = 'check_internet_connection';
 const String invalidEmailOrPassword = 'invalid_email_or_password';
+
+// Currency Exchange
+const String confirmCurrencyExchange = 'confirm_currency_exchange';
+const String fromAccount = 'from_account';
+const String toAccount = 'to_account';
+const String fromCurrency = 'from_currency';
+const String toCurrency = 'to_currency';
+const String chooseAccountToExchangeFrom = 'choose_account_to_exchange_from';
+const String chooseAccountToExchangeTo = 'choose_account_to_exchange_to';
+const String chooseCurrencyToExchangeFrom = 'choose_currency_to_exchange_from';
+const String chooseCurrencyToExchangeTo = 'choose_currency_to_exchange_to';
+const String exchangeRate = 'exchange_rate';
+const String youWillReceive = 'you_will_receive';
+const String exchangeNotAllowed = 'exchange_not_allowed';
+const String recieved = 'recieved';

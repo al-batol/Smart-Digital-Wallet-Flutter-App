@@ -28,7 +28,7 @@ class PaymentModelAdapter extends TypeAdapter<PaymentModel> {
   @override
   void write(BinaryWriter writer, PaymentModel obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -48,7 +48,19 @@ class PaymentModelAdapter extends TypeAdapter<PaymentModel> {
       ..writeByte(8)
       ..write(obj.number)
       ..writeByte(9)
-      ..write(obj.provider);
+      ..write(obj.provider)
+      ..writeByte(10)
+      ..write(obj.fromAccountId)
+      ..writeByte(11)
+      ..write(obj.toAccountId)
+      ..writeByte(12)
+      ..write(obj.fromCurrency)
+      ..writeByte(13)
+      ..write(obj.toCurrency)
+      ..writeByte(14)
+      ..write(obj.convertedAmount)
+      ..writeByte(15)
+      ..write(obj.exchangeRate);
   }
 
   @override

@@ -28,7 +28,6 @@ class BiometricService {
         biometricOnly: true,
       );
       await Future.delayed(const Duration(seconds: 1));
-
     } on PlatformException catch (e) {
       throw e.message.toString();
     }

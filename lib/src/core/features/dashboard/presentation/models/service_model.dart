@@ -20,5 +20,10 @@ class ServiceModel {
       routeName: sendMoneyRoute,
     ),
     ServiceModel(name: 'pay_bill', icon: payBillImg, routeName: payBillRoute),
+    ServiceModel(
+      name: 'currency_exchange',
+      icon: currencyExchangeImg,
+      routeName: currencyExchangeRoute,
+    ),
   ];
 }

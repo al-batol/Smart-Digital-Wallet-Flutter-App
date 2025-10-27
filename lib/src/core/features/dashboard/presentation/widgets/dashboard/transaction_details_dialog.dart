@@ -48,7 +48,7 @@ class TransactionDetailsDialog extends StatelessWidget {
             ),
             _buildDetailRow(
               context.translate(amount),
-              '${transaction.amount} ${transaction.currency}',
+              '${transaction.amount} ${transaction.currency ?? transaction.fromCurrency ?? ''}',
             ),
             _buildDetailRow(
               context.translate(accountId),
@@ -81,6 +81,32 @@ class TransactionDetailsDialog extends StatelessWidget {
               _buildDetailRow(
                 context.translate(phoneNumber),
                 transaction.number ?? '-',
+              ),
+            ],
+            if (transaction.type == 'exchangeCurrency') ...[
+              _buildDetailRow(
+                context.translate(fromAccount),
+                transaction.fromAccountId ?? '-',
+              ),
+              _buildDetailRow(
+                context.translate(toAccount),
+                transaction.toAccountId ?? '-',
+              ),
+              _buildDetailRow(
+                context.translate(fromCurrency),
+                transaction.fromCurrency ?? '-',
+              ),
+              _buildDetailRow(
+                context.translate(toCurrency),
+                transaction.toCurrency ?? '-',
+              ),
+              _buildDetailRow(
+                context.translate(exchangeRate),
+                transaction.exchangeRate?.toStringAsFixed(4) ?? '-',
+              ),
+              _buildDetailRow(
+                context.translate(recieved),
+                '${transaction.convertedAmount?.toStringAsFixed(2) ?? '-'} ${transaction.toCurrency ?? ''}',
               ),
             ],
             if (transaction.id != null)
@@ -124,6 +150,8 @@ class TransactionDetailsDialog extends StatelessWidget {
         return 'send_money';
       case 'paybill':
         return 'pay_bill';
+      case 'exchangeCurrency':
+        return 'currency_exchange';
       default:
         return 'transaction';
     }

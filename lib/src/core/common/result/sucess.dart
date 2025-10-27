@@ -24,3 +24,7 @@ class SendMoneySuccess extends Success {
 class PayBillSuccess extends Success {
   const PayBillSuccess({required super.message});
 }
+
+class CurrencyExchangeSuccess extends Success {
+  const CurrencyExchangeSuccess({required super.message});
+}

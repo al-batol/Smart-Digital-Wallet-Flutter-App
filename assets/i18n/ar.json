@@ -26,7 +26,7 @@
   "services": "الخدمات",
   "top_up": "شحن الرصيد",
   "send_money": "إرسال الأموال",
-  "pay_bill": "دفع الفاتورة",
+  "pay_bill": "سداد الفاتورة",
   "last_transactions": "آخر المعاملات",
   "no_transactions_yet": "لا توجد معاملات حتى الآن",
   "transaction": "معاملة",
@@ -94,6 +94,24 @@
   "biometric_sign_in_title": "تسجيل الدخول",
   "biometric_sign_in_hint": "استخدم المقاييس الحيوية للمصادقة",
   "biometric_cancel_button": "إلغاء",
-  "biometric_auth_failed": "فشلت المصادقة البيومترية"
+  "biometric_auth_failed": "فشلت المصادقة البيومترية",
+  
+  "currency_exchange": "صرف العملات",
+  "confirm_currency_exchange": "تأكيد الصرف",
+  "from_account": "من الحساب",
+  "to_account": "إلى الحساب",
+  "from_currency": "من العملة",
+  "to_currency": "إلى العملة",
+  "converted_amount": "المبلغ المحول",
+  "choose_account_to_exchange_from": "اختر الحساب الذي تريد الصرف منه",
+  "choose_account_to_exchange_to": "اختر الحساب الذي تريد الصرف إليه",
+  "choose_currency_to_exchange_from": "اختر العملة التي تريد صرفها",
+  "choose_currency_to_exchange_to": "اختر العملة التي تريد الصرف إليها",
+  "exchange_rate": "سعر الصرف",
+  "you_will_receive": "ستحصل على",
+  "exchange_not_allowed": "صرف هذه العملة غير مسموح",
+  "no_accounts_available": "لا توجد حسابات متاحة",
+  "recieved": "المبلغ"
+
 }
 

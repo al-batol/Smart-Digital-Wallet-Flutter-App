@@ -28,3 +28,7 @@ class SendMoneyException extends AppException {
 class PayBillException extends AppException {
   const PayBillException({required super.message});
 }
+
+class CurrencyExchangeException extends AppException {
+  const CurrencyExchangeException({required super.message});
+}

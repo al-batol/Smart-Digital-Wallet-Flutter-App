@@ -52,7 +52,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     ToggleSelectedCurrencyEvent event,
     Emitter<DashboardState> emit,
   ) {
-    final selectedCurrencyIndexes = List<int>.from(state.selectedCurrencyIndexes ?? []);
+    final selectedCurrencyIndexes = List<int>.from(
+      state.selectedCurrencyIndexes ?? [],
+    );
     selectedCurrencyIndexes[event.accountIndex] = event.index;
     emit(state.copyWith(selectedCurrencyIndexes: selectedCurrencyIndexes));
   }

@@ -89,6 +89,8 @@ class TransactionItemWidget extends StatelessWidget {
         return 'send_money';
       case 'paybill':
         return 'pay_bill';
+      case 'exchangeCurrency':
+        return 'currency_exchange';
       default:
         return 'transaction';
     }
@@ -102,6 +104,8 @@ class TransactionItemWidget extends StatelessWidget {
         return Icons.arrow_upward_rounded;
       case 'paybill':
         return Icons.receipt_long_rounded;
+      case 'exchangeCurrency':
+        return Icons.currency_exchange;
       default:
         return Icons.sync_alt_rounded;
     }
@@ -115,6 +119,8 @@ class TransactionItemWidget extends StatelessWidget {
         return Colors.orange;
       case 'paybill':
         return Colors.blue;
+      case 'exchangeCurrency':
+        return Colors.purple;
       default:
         return colors.primaryColor;
     }
