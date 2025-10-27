@@ -40,7 +40,6 @@ class _CurrencyExchangeViewState extends State<CurrencyExchangeView> {
     _formKey = GlobalKey<FormState>();
     _amountController = TextEditingController();
 
-    // Initialize with first account for both from and to
     if (widget.accounts.isNotEmpty) {
       context.read<CurrencyExchangeBloc>().add(
         SelectFromAccountEvent(account: widget.accounts.first),
@@ -50,7 +49,6 @@ class _CurrencyExchangeViewState extends State<CurrencyExchangeView> {
       );
     }
 
-    // Listen to amount changes to update the exchange rate display
     _amountController.addListener(() {
       setState(() {});
     });

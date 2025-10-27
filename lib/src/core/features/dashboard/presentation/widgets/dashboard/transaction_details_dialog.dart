@@ -50,10 +50,11 @@ class TransactionDetailsDialog extends StatelessWidget {
               context.translate(amount),
               '${transaction.amount} ${transaction.currency ?? transaction.fromCurrency ?? ''}',
             ),
-            _buildDetailRow(
-              context.translate(accountId),
-              transaction.accountId ?? '-',
-            ),
+            if (transaction.accountId != null)
+              _buildDetailRow(
+                context.translate(accountId),
+                transaction.accountId ?? '-',
+              ),
             if (transaction.type == 'sendmoney') ...[
               _buildDetailRow(
                 context.translate(recipientId),

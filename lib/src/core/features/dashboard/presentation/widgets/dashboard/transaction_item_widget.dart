@@ -64,7 +64,8 @@ class TransactionItemWidget extends StatelessWidget {
                   ),
                   SizedBox(height: 2),
                   TextWidgetSm(
-                    text: '${transaction.amount} ${transaction.currency}',
+                    text:
+                        '${transaction.amount} ${transaction.currency ?? transaction.fromCurrency ?? ''}',
                     textColor: colors.textSecondaryColor,
                   ),
                 ],
