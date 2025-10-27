@@ -17,16 +17,18 @@ class TopUpModelAdapter extends TypeAdapter<TopUpModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TopUpModel(
-      amount: fields[2] as double? ?? 0.0,
-      currency: fields[3] as String? ?? '',
-      accountId: fields[4] as String? ?? '',
+      provider: fields[9] as String?,
+      number: fields[8] as String?,
+      amount: fields[2] as double?,
+      currency: fields[3] as String?,
+      accountId: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, TopUpModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -44,7 +46,9 @@ class TopUpModelAdapter extends TypeAdapter<TopUpModel> {
       ..writeByte(7)
       ..write(obj.billType)
       ..writeByte(8)
-      ..write(obj.billNumber);
+      ..write(obj.number)
+      ..writeByte(9)
+      ..write(obj.provider);
   }
 
   @override

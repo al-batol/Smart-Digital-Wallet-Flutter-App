@@ -69,7 +69,18 @@ class TransactionDetailsDialog extends StatelessWidget {
               ),
               _buildDetailRow(
                 context.translate(billNumber),
-                transaction.billNumber ?? '-',
+                transaction.number ?? '-',
+              ),
+            ],
+            if (transaction.type == 'topup') ...[
+              if (transaction.provider != null)
+                _buildDetailRow(
+                  context.translate(selectedProvider),
+                  context.translate(transaction.provider!),
+                ),
+              _buildDetailRow(
+                context.translate(phoneNumber),
+                transaction.number ?? '-',
               ),
             ],
             if (transaction.id != null)

@@ -31,7 +31,7 @@ class PayBillBloc extends Bloc<PayBillEvent, PayBillState> {
 
     final payment = PaymentEntity(
       billType: event.billType,
-      billNumber: event.billNumber,
+      number: event.number,
       amount: event.amount,
       currency: event.currency,
       accountId: event.accountId,

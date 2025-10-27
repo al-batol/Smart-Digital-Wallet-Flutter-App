@@ -17,17 +17,17 @@ class TransferModelAdapter extends TypeAdapter<TransferModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TransferModel(
-      recipientAccountId: fields[5] as String? ?? '',
-      sourceAccountId: fields[4] as String? ?? '',
-      currency: fields[3] as String? ?? '',
-      amount: fields[2] as double? ?? 0.0,
+      recipientAccountId: fields[5] as String?,
+      accountId: fields[4] as String?,
+      currency: fields[3] as String?,
+      amount: fields[2] as double?,
     );
   }
 
   @override
   void write(BinaryWriter writer, TransferModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -45,7 +45,9 @@ class TransferModelAdapter extends TypeAdapter<TransferModel> {
       ..writeByte(7)
       ..write(obj.billType)
       ..writeByte(8)
-      ..write(obj.billNumber);
+      ..write(obj.number)
+      ..writeByte(9)
+      ..write(obj.provider);
   }
 
   @override

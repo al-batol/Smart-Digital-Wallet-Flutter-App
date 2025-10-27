@@ -12,7 +12,7 @@ import 'package:smart_digital_wallet/src/core/common/helper/snack_bars.dart';
 import 'package:smart_digital_wallet/src/core/common/mocked_data/bill_types_mock.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/amount_input_widget.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/app_button.dart';
-import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_lg.dart';
+import 'package:smart_digital_wallet/src/core/common/widgets/number_input_widget.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_xl.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/account_entity.dart';
 import 'package:smart_digital_wallet/src/core/features/pay_bill/data/models/bill_type_model.dart';
@@ -31,14 +31,14 @@ class PayBillView extends StatefulWidget {
 class _PayBillViewState extends State<PayBillView> {
   late final GlobalKey<FormState> _formKey;
   late final TextEditingController _amountController;
-  late final TextEditingController _billNumberController;
+  late final TextEditingController _numberController;
 
   @override
   void initState() {
     super.initState();
     _formKey = GlobalKey<FormState>();
     _amountController = TextEditingController();
-    _billNumberController = TextEditingController();
+    _numberController = TextEditingController();
     final firstBillType = BillTypeModel.fromJson(billTypesMock.first);
     context.read<PayBillBloc>().add(
       SelectBillTypeEvent(billType: firstBillType),
@@ -48,7 +48,7 @@ class _PayBillViewState extends State<PayBillView> {
   @override
   void dispose() {
     _amountController.dispose();
-    _billNumberController.dispose();
+    _numberController.dispose();
     super.dispose();
   }
 
@@ -112,125 +112,53 @@ class _PayBillViewState extends State<PayBillView> {
                   ),
                   child: Form(
                     key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const BillTypeSelectorWidget(),
-                        SizedBox(
-                          height: AppDimensions.spacingMd.height(context),
-                        ),
-                        TextWidgetLg(
-                          text: context.translate(billNumber),
-                          textColor: textHeadlineColor,
-                        ),
-                        SizedBox(
-                          height: AppDimensions.spacingSm.height(context),
-                        ),
-                        TextFormField(
-                          controller: _billNumberController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            hintText: context.translate(
-                              'enter_bill_number_placeholder',
+                    child: BlocBuilder<PayBillBloc, PayBillState>(
+                      builder: (context, state) {
+                        final defaultAccount = widget.accounts.first;
+                        final defaultCurrency =
+                            defaultAccount.currencyBalances!.first;
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const BillTypeSelectorWidget(),
+                            SizedBox(
+                              height: AppDimensions.spacingMd.height(context),
                             ),
-                            hintStyle: const TextStyle(
-                              color: hintTextFieldColor,
+                            NumberInputWidget(
+                              controller: _numberController,
+                              label: billNumber,
+                              hintText: enterBillNumberPlaceholder,
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return context.translate(enterBillNumber);
+                                }
+                                return null;
+                              },
                             ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: textHeadlineColor.withValues(alpha: 0.2),
-                              ),
+                            SizedBox(
+                              height: AppDimensions.spacingMd.height(context),
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: textHeadlineColor.withValues(alpha: 0.2),
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: primaryColor.withValues(alpha: 0.5),
-                              ),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: errorTextColor.withValues(alpha: 0.5),
-                              ),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: errorTextColor.withValues(alpha: 0.5),
-                              ),
-                            ),
-                            contentPadding: EdgeInsets.all(
-                              AppDimensions.paddingSm.width(context),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return context.translate(enterBillNumber);
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(
-                          height: AppDimensions.spacingMd.height(context),
-                        ),
-                        Builder(
-                          builder: (context) {
-                            double? maxAmount;
-                            String? currency;
-                            if (widget.accounts.isNotEmpty &&
-                                widget.accounts.first.currencyBalances !=
-                                    null &&
-                                widget
-                                    .accounts
-                                    .first
-                                    .currencyBalances!
-                                    .isNotEmpty) {
-                              final defaultCurrency =
-                                  widget.accounts.first.currencyBalances!.first;
-                              maxAmount = defaultCurrency.balance;
-                              currency = defaultCurrency.currency.currency;
-                            }
-                            return AmountInputWidget(
+                            AmountInputWidget(
                               amountController: _amountController,
-                              maxAmount: maxAmount,
-                              currency: currency,
-                            );
-                          },
-                        ),
-                        SizedBox(
-                          height: AppDimensions.spacingXl.height(context),
-                        ),
-                        BlocBuilder<PayBillBloc, PayBillState>(
-                          buildWhen: (previous, current) =>
-                              previous.selectedBillType !=
-                              current.selectedBillType,
-                          builder: (context, state) {
-                            return AppButton(
+                              maxAmount: defaultCurrency.balance,
+                              currency: defaultCurrency.currency.currency,
+                            ),
+                            SizedBox(
+                              height: AppDimensions.spacingXl.height(context),
+                            ),
+                            AppButton(
                               text: context.translate(payBill),
                               onPressed: () {
                                 if (_formKey.currentState!.validate() &&
-                                    state.selectedBillType != null &&
-                                    widget.accounts.isNotEmpty &&
-                                    widget.accounts.first.currencyBalances !=
-                                        null &&
-                                    widget
-                                        .accounts
-                                        .first
-                                        .currencyBalances!
-                                        .isNotEmpty) {
-                                  final defaultCurrency = widget
-                                      .accounts
-                                      .first
-                                      .currencyBalances!
-                                      .first;
+                                    state.selectedBillType != null) {
                                   context.read<PayBillBloc>().add(
                                     ConfirmPayBillEvent(
                                       billType:
                                           state.selectedBillType!.billType,
-                                      billNumber: _billNumberController.text,
+                                      number: _numberController.text,
                                       amount: double.parse(
                                         _amountController.text,
                                       ),
@@ -241,13 +169,13 @@ class _PayBillViewState extends State<PayBillView> {
                                   );
                                 }
                               },
-                            );
-                          },
-                        ),
-                        SizedBox(
-                          height: AppDimensions.spacingMd.height(context),
-                        ),
-                      ],
+                            ),
+                            SizedBox(
+                              height: AppDimensions.spacingMd.height(context),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ),

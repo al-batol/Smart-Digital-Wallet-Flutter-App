@@ -8,15 +8,15 @@ part 'transfer_model.g.dart';
 class TransferModel extends TransactionModel {
   const TransferModel({
     required super.recipientAccountId,
-    required String sourceAccountId,
+    required super.accountId,
     required super.currency,
     required super.amount,
-  }) : super(accountId: sourceAccountId, type: 'sendmoney');
+  }) : super(type: 'sendmoney');
 
   factory TransferModel.fromEntity(TransferEntity entity) {
     return TransferModel(
       recipientAccountId: entity.recipientAccountId,
-      sourceAccountId: entity.sourceAccountId,
+      accountId: entity.sourceAccountId,
       currency: entity.currency,
       amount: entity.amount,
     );
@@ -31,6 +31,7 @@ class TransferModel extends TransactionModel {
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'recipientAccountId': recipientAccountId,

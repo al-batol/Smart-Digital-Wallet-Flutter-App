@@ -9,13 +9,15 @@ import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions
 import 'package:smart_digital_wallet/src/core/common/helper/loading_dialog.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/responsive_helper.dart';
 import 'package:smart_digital_wallet/src/core/common/helper/snack_bars.dart';
+import 'package:smart_digital_wallet/src/core/common/mocked_data/providers_mock.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/amount_input_widget.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/app_button.dart';
+import 'package:smart_digital_wallet/src/core/common/widgets/number_input_widget.dart';
 import 'package:smart_digital_wallet/src/core/common/widgets/text_widget_xl.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/domain/entities/account_entity.dart';
+import 'package:smart_digital_wallet/src/core/features/top_up/data/models/provider_model.dart';
 import 'package:smart_digital_wallet/src/core/features/top_up/presentation/blocs/bloc/top_up_bloc.dart';
-import 'package:smart_digital_wallet/src/core/features/top_up/presentation/widgets/top_up/account_selector_widget.dart';
-import 'package:smart_digital_wallet/src/core/features/top_up/presentation/widgets/top_up/currency_selector_widget.dart';
+import 'package:smart_digital_wallet/src/core/features/top_up/presentation/widgets/top_up/provider_selector_widget.dart';
 
 class TopUpView extends StatefulWidget {
   final List<AccountEntity> accounts;
@@ -29,20 +31,22 @@ class TopUpView extends StatefulWidget {
 class _TopUpViewState extends State<TopUpView> {
   late final GlobalKey<FormState> _formKey;
   late final TextEditingController _amountController;
+  late final TextEditingController _numberController;
 
   @override
   void initState() {
     super.initState();
     _formKey = GlobalKey<FormState>();
     _amountController = TextEditingController();
-    context.read<TopUpBloc>().add(
-      SelectAccountEvent(account: widget.accounts.first),
-    );
+    _numberController = TextEditingController();
+    final firstProvider = ProviderModel.fromJson(providersMock.first);
+    context.read<TopUpBloc>().add(SelectProviderEvent(provider: firstProvider));
   }
 
   @override
   void dispose() {
     _amountController.dispose();
+    _numberController.dispose();
     super.dispose();
   }
 
@@ -101,55 +105,69 @@ class _TopUpViewState extends State<TopUpView> {
               padding: EdgeInsets.all(AppDimensions.paddingLg.width(context)),
               child: Form(
                 key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    AccountSelectorWidget(
-                      accounts: widget.accounts,
-                      selectedAccount: widget.accounts.first,
-                    ),
-                    SizedBox(height: AppDimensions.spacingMd.height(context)),
-                    BlocBuilder<TopUpBloc, TopUpState>(
-                      buildWhen: (previous, current) =>
-                          previous.selectedAccount != current.selectedAccount,
-                      builder: (context, state) {
-                        return CurrencySelectorWidget(
-                          selectedAccount: state.selectedAccount,
-                        );
-                      },
-                    ),
-                    SizedBox(height: AppDimensions.spacingMd.height(context)),
-                    AmountInputWidget(amountController: _amountController),
-                    SizedBox(height: AppDimensions.spacingXl.height(context)),
-                    BlocBuilder<TopUpBloc, TopUpState>(
-                      buildWhen: (previous, current) =>
-                          previous.selectedAccount != current.selectedAccount ||
-                          previous.selectedCurrencyIndex !=
-                              current.selectedCurrencyIndex,
-                      builder: (context, state) {
-                        return AppButton(
+                child: BlocBuilder<TopUpBloc, TopUpState>(
+                  builder: (context, state) {
+                    final defaultAccount = widget.accounts.first;
+                    final defaultCurrency =
+                        defaultAccount.currencyBalances!.first;
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const ProviderSelectorWidget(),
+                        SizedBox(
+                          height: AppDimensions.spacingMd.height(context),
+                        ),
+                        NumberInputWidget(
+                          controller: _numberController,
+                          label: phoneNumber,
+                          hintText: enterPhoneNumberPlaceholder,
+                          keyboardType: TextInputType.phone,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return context.translate(enterPhoneNumber);
+                            }
+                            if (value.length < 9) {
+                              return context.translate(validPhoneNumber);
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: AppDimensions.spacingMd.height(context),
+                        ),
+                        AmountInputWidget(
+                          amountController: _amountController,
+                          maxAmount: defaultCurrency.balance,
+                          currency: defaultCurrency.currency.currency,
+                        ),
+                        SizedBox(
+                          height: AppDimensions.spacingXl.height(context),
+                        ),
+                        AppButton(
                           text: context.translate(confirmTopUp),
                           onPressed: () {
                             if (_formKey.currentState!.validate() &&
-                                state.selectedAccount != null) {
-                              final selectedCurrency =
-                                  state.selectedAccount!.currencyBalances![state
-                                      .selectedCurrencyIndex];
+                                state.selectedProvider != null) {
                               context.read<TopUpBloc>().add(
                                 ConfirmTopUpEvent(
+                                  provider: state.selectedProvider!.provider,
+                                  number: _numberController.text,
                                   amount: double.parse(_amountController.text),
-                                  currency: selectedCurrency.currency.currency,
-                                  accountId: state.selectedAccount!.id,
+                                  currency: defaultCurrency.currency.currency,
+                                  accountId: widget.accounts.first.id,
                                 ),
                               );
                             }
                           },
-                        );
-                      },
-                    ),
-                    SizedBox(height: AppDimensions.spacingMd.height(context)),
-                  ],
+                        ),
+                        SizedBox(
+                          height: AppDimensions.spacingMd.height(context),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),

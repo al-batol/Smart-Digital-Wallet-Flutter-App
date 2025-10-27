@@ -203,7 +203,7 @@ class AccountCardWidget extends StatelessWidget {
                           ToggleBalanceVisibilityEvent(),
                         ),
                         child: SvgImage(
-                          path: state.isBalanceVisible ? eyeOffImg : eyeOnImg,
+                          path: !state.isBalanceVisible ? eyeOffImg : eyeOnImg,
                           color: textMainColor,
                         ),
                       );

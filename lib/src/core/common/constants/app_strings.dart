@@ -84,6 +84,20 @@ const String enterBillNumber = 'enter_bill_number';
 const String waterBill = 'water_bill';
 const String electricityBill = 'electricity_bill';
 
+// Top Up
+const String selectProvider = 'select_provider';
+const String selectedProvider = 'selected_provider';
+const String chooseProvider = 'choose_provider';
+const String phoneNumber = 'phone_number';
+const String enterPhoneNumberPlaceholder = 'enter_phone_number_placeholder';
+const String enterPhoneNumber = 'enter_phone_number';
+const String validPhoneNumber = 'valid_phone_number';
+
+// Top Up Providers
+const String yemenMobile = 'yemen_mobile';
+const String sabafon = 'sabafon';
+const String you = 'you';
+
 // Errors
 const String checkInternetConnection = 'check_internet_connection';
 const String invalidEmailOrPassword = 'invalid_email_or_password';

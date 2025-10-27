@@ -8,7 +8,7 @@ part 'payment_model.g.dart';
 class PaymentModel extends TransactionModel {
   const PaymentModel({
     required super.billType,
-    required super.billNumber,
+    required super.number,
     required super.amount,
     required super.currency,
     required super.accountId,
@@ -17,7 +17,7 @@ class PaymentModel extends TransactionModel {
   factory PaymentModel.fromEntity(PaymentEntity entity) {
     return PaymentModel(
       billType: entity.billType,
-      billNumber: entity.billNumber,
+      number: entity.number,
       amount: entity.amount,
       currency: entity.currency,
       accountId: entity.accountId,
@@ -27,17 +27,18 @@ class PaymentModel extends TransactionModel {
   PaymentEntity toEntity() {
     return PaymentEntity(
       billType: billType!,
-      billNumber: billNumber!,
+      number: number!,
       amount: amount!,
       currency: currency!,
       accountId: accountId!,
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'billType': billType,
-      'billNumber': billNumber,
+      'number': number,
       'amount': amount,
       'currency': currency,
       'accountId': accountId,

@@ -7,6 +7,8 @@ part 'top_up_model.g.dart';
 @HiveType(typeId: 1)
 class TopUpModel extends TransactionModel {
   const TopUpModel({
+    required super.provider,
+    required super.number,
     required super.amount,
     required super.currency,
     required super.accountId,
@@ -14,6 +16,8 @@ class TopUpModel extends TransactionModel {
 
   factory TopUpModel.fromJson(Map<String, dynamic> json) {
     return TopUpModel(
+      provider: json['provider'] as String,
+      number: json['number'] as String,
       amount: (json['amount'] as num).toDouble(),
       currency: json['currency'] as String,
       accountId: json['accountId'] as String,
@@ -22,6 +26,8 @@ class TopUpModel extends TransactionModel {
 
   factory TopUpModel.fromEntity(TopUpEntity entity) {
     return TopUpModel(
+      provider: entity.provider,
+      number: entity.number,
       amount: entity.amount,
       currency: entity.currency,
       accountId: entity.accountId,
@@ -30,13 +36,22 @@ class TopUpModel extends TransactionModel {
 
   TopUpEntity toEntity() {
     return TopUpEntity(
+      provider: provider!,
+      number: number!,
       amount: amount!,
       currency: currency!,
       accountId: accountId!,
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
-    return {'amount': amount, 'currency': currency, 'accountId': accountId};
+    return {
+      'provider': provider,
+      'number': number,
+      'amount': amount,
+      'currency': currency,
+      'accountId': accountId,
+    };
   }
 }

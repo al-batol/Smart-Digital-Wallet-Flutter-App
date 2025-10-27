@@ -7,44 +7,30 @@ sealed class TopUpEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SelectAccountEvent extends TopUpEvent {
-  final AccountEntity account;
+class SelectProviderEvent extends TopUpEvent {
+  final ProviderEntity provider;
 
-  const SelectAccountEvent({required this.account});
-
-  @override
-  List<Object> get props => [account];
-}
-
-class SelectAmountEvent extends TopUpEvent {
-  final double amount;
-
-  const SelectAmountEvent({required this.amount});
+  const SelectProviderEvent({required this.provider});
 
   @override
-  List<Object> get props => [amount];
-}
-
-class SelectCurrencyEvent extends TopUpEvent {
-  final int currencyIndex;
-
-  const SelectCurrencyEvent({required this.currencyIndex});
-
-  @override
-  List<Object> get props => [currencyIndex];
+  List<Object> get props => [provider];
 }
 
 class ConfirmTopUpEvent extends TopUpEvent {
+  final String provider;
+  final String number;
   final double amount;
   final String currency;
   final String accountId;
 
   const ConfirmTopUpEvent({
+    required this.provider,
+    required this.number,
     required this.amount,
     required this.currency,
     required this.accountId,
   });
 
   @override
-  List<Object> get props => [amount, currency, accountId];
+  List<Object> get props => [provider, number, amount, currency, accountId];
 }

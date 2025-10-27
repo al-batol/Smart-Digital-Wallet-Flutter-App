@@ -76,6 +76,19 @@
   "invalid_email_or_password": "Invalid email or password",
   
   "water_bill": "Water bill",
-  "electricity_bill": "Electricity bill"
+  "electricity_bill": "Electricity bill",
+
+  "select_provider": "Select Provider",
+  "selected_provider": "Selected Provider",
+  "choose_provider": "Choose your mobile provider",
+  "phone_number": "Phone Number",
+  "enter_phone_number_placeholder": "Enter phone number",
+  "enter_phone_number": "Please enter phone number",
+  "valid_phone_number": "Please enter a valid phone number",
+  
+  "yemen_mobile": "Yemen Mobile",
+  "sabafon": "Sabafon",
+  "you": "You"
+ 
 }
 

@@ -76,6 +76,18 @@
   "invalid_email_or_password": "بريد إلكتروني أو كلمة مرور غير صالحة",
   
   "water_bill": "فاتورة المياه",
-  "electricity_bill": "فاتورة الكهرباء"
+  "electricity_bill": "فاتورة الكهرباء",
+  
+  "select_provider": "اختر المزود",
+  "selected_provider": "المزود المختار",
+  "choose_provider": "اختر مزود خدمة الهاتف المحمول",
+  "phone_number": "رقم الهاتف",
+  "enter_phone_number_placeholder": "أدخل رقم الهاتف",
+  "enter_phone_number": "يرجى إدخال رقم الهاتف",
+  "valid_phone_number": "يرجى إدخال رقم هاتف صالح",
+
+  "yemen_mobile": "يمن موبايل",
+  "sabafon": "سبأفون",
+  "you": "يو"
 }
 
