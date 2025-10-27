@@ -63,7 +63,7 @@ class _SignInViewState extends State<SignInView> {
           if (state.isSignInLoading) {
             showLoadingDialog(context);
           } else {
-            if (context.canPop()) {
+            if (context.canPop() && !state.isBiometric) {
               context.pop();
             }
           }

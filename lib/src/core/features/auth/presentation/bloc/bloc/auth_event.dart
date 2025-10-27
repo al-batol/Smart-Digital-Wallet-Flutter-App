@@ -20,3 +20,8 @@ class SignInEvent extends AuthEvent {
   @override
   List<Object> get props => [email, password];
 }
+
+class AuthenticateWithBiometricsEvent extends AuthEvent {
+  final BuildContext context;
+  const AuthenticateWithBiometricsEvent(this.context);
+}

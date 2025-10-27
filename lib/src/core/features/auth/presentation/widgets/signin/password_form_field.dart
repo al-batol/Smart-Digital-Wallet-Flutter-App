@@ -66,20 +66,44 @@ class PasswordFormField extends StatelessWidget {
                   buildWhen: (previous, current) =>
                       previous.isPasswordVisible != current.isPasswordVisible,
                   builder: (context, state) {
-                    return InkWell(
-                      onTap: () {
-                        context.read<AuthBloc>().add(
-                          TogglePasswordVisibilityEvent(),
-                        );
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(
-                          (AppDimensions.paddingSm + 4).width(context),
+                    return Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            context.read<AuthBloc>().add(
+                              TogglePasswordVisibilityEvent(),
+                            );
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.all(
+                              (AppDimensions.paddingSm + 4).width(context),
+                            ),
+                            child: SvgImage(
+                              path: state.isPasswordVisible
+                                  ? eyeOnImg
+                                  : eyeOffImg,
+                            ),
+                          ),
                         ),
-                        child: SvgImage(
-                          path: state.isPasswordVisible ? eyeOnImg : eyeOffImg,
+                        InkWell(
+                          onTap: () {
+                            context.read<AuthBloc>().add(
+                               AuthenticateWithBiometricsEvent(context),
+                            );
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.all(
+                              (AppDimensions.paddingSm + 4).width(context),
+                            ),
+                            child: SvgImage(
+                              path: biometricImg,
+                              height: AppDimensions.iconMd,
+                              width: AppDimensions.iconMd,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     );
                   },
                 ),

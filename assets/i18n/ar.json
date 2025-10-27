@@ -88,6 +88,12 @@
 
   "yemen_mobile": "يمن موبايل",
   "sabafon": "سبأفون",
-  "you": "يو"
+  "you": "يو",
+  
+  "biometric_auth_reason": "يرجى المصادقة للوصول إلى خدماتنا",
+  "biometric_sign_in_title": "تسجيل الدخول",
+  "biometric_sign_in_hint": "استخدم المقاييس الحيوية للمصادقة",
+  "biometric_cancel_button": "إلغاء",
+  "biometric_auth_failed": "فشلت المصادقة البيومترية"
 }
 

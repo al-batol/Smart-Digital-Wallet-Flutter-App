@@ -98,6 +98,13 @@ const String yemenMobile = 'yemen_mobile';
 const String sabafon = 'sabafon';
 const String you = 'you';
 
+// Biometric Authentication
+const String biometricAuthReason = 'biometric_auth_reason';
+const String biometricSignInTitle = 'biometric_sign_in_title';
+const String biometricSignInHint = 'biometric_sign_in_hint';
+const String biometricCancelButton = 'biometric_cancel_button';
+const String biometricAuthFailed = 'biometric_auth_failed';
+
 // Errors
 const String checkInternetConnection = 'check_internet_connection';
 const String invalidEmailOrPassword = 'invalid_email_or_password';

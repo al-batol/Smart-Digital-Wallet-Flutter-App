@@ -88,7 +88,13 @@
   
   "yemen_mobile": "Yemen Mobile",
   "sabafon": "Sabafon",
-  "you": "You"
+  "you": "You",
+  
+  "biometric_auth_reason": "Please authenticate to access our services",
+  "biometric_sign_in_title": "Sign in",
+  "biometric_sign_in_hint": "Use your biometric to authenticate",
+  "biometric_cancel_button": "Cancel",
+  "biometric_auth_failed": "Biometric authentication failed"
  
 }
 

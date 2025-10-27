@@ -1,10 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_constants.dart';
 import 'package:smart_digital_wallet/src/core/common/localization/cubit/localization_cubit.dart';
 import 'package:smart_digital_wallet/src/core/common/services/api_client_service.dart';
+import 'package:smart_digital_wallet/src/core/common/services/biometric_service.dart';
 import 'package:smart_digital_wallet/src/core/common/services/network_connectivity_service.dart';
 import 'package:smart_digital_wallet/src/core/common/services/secure_storage_service.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/data/data_sources/auth_local_data_source.dart';
@@ -12,6 +14,7 @@ import 'package:smart_digital_wallet/src/core/features/auth/data/data_sources/au
 import 'package:smart_digital_wallet/src/core/features/auth/data/repository/auth_repo_imp.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/domain/repository/auth_repository.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/domain/usecases/signin_usecase.dart';
+import 'package:smart_digital_wallet/src/core/features/auth/domain/usecases/authenticate_with_biometrics_usecase.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/presentation/bloc/bloc/auth_bloc.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/data/data_sources/dashboard_local_data_source.dart';
 import 'package:smart_digital_wallet/src/core/features/dashboard/data/data_sources/dashboard_remote_data_scource.dart';
@@ -46,25 +49,36 @@ Future<void> init() async {
   // Initialize SharedPreferences
   final sharedPreferences = await SharedPreferences.getInstance();
 
+  final localAuth = LocalAuthentication();
+
+  final connectivity = Connectivity();
+
   // services
   sl
     ..registerLazySingleton<SharedPreferences>(() => sharedPreferences)
     ..registerLazySingleton<FlutterSecureStorage>(
       () => const FlutterSecureStorage(),
     )
-    ..registerLazySingleton<Connectivity>(() => Connectivity())
+    ..registerLazySingleton<LocalAuthentication>(() => localAuth)
+    ..registerLazySingleton<Connectivity>(() => connectivity)
     ..registerLazySingleton<SecureStorageService>(
       () => SecureStorageService(storage: sl()),
     )
     ..registerLazySingleton<NetworkConnectivityService>(
       () => NetworkConnectivityService(connectivity: sl()),
     )
+    ..registerLazySingleton<BiometricService>(
+      () => BiometricService(localAuth: sl()),
+    )
     ..registerLazySingleton<ApiClientService>(() => ApiClientService())
     // blocs
     ..registerFactory<LocalizationCubit>(
       () => LocalizationCubit(sharedPreferences: sl(), locale: appLanguages[0]),
     )
-    ..registerFactory<AuthBloc>(() => AuthBloc(signInUsecase: sl()))
+    ..registerFactory<AuthBloc>(() => AuthBloc(
+          signInUsecase: sl(),
+          authenticateWithBiometricsUsecase: sl(),
+        ))
     ..registerFactory<DashboardBloc>(
       () => DashboardBloc(
         getAccountsUsecase: sl(),
@@ -126,7 +140,11 @@ Future<void> init() async {
     )
     // repositories
     ..registerLazySingleton<AuthRepository>(
-      () => AuthRepoImp(authRemoteDataSource: sl(), authLocalDataSourse: sl()),
+      () => AuthRepoImp(
+        authRemoteDataSource: sl(), 
+        authLocalDataSourse: sl(),
+        biometricService: sl(),
+      ),
     )
     ..registerLazySingleton<DashbaordRepository>(
       () => DashbaordRepoImp(
@@ -153,6 +171,9 @@ Future<void> init() async {
     // usecases
     ..registerLazySingleton<SignInUsecase>(
       () => SignInUsecase(authRepository: sl()),
+    )
+    ..registerLazySingleton<AuthenticateWithBiometricsUsecase>(
+      () => AuthenticateWithBiometricsUsecase(authRepository: sl()),
     )
     ..registerLazySingleton<GetAccountsUsecase>(
       () => GetAccountsUsecase(dashbaordRepository: sl()),
