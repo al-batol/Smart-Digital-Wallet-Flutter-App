@@ -5,7 +5,7 @@ class DashboardState extends Equatable {
   final bool isBalanceVisible;
   final String errorMessage;
   final AccountsEntity? accounts;
-  final int selectedCurrencyIndex;
+  final List<int?>? selectedCurrencyIndexes;
   final List<TransactionModel> lastTransactions;
 
   const DashboardState({
@@ -13,7 +13,7 @@ class DashboardState extends Equatable {
     this.isBalanceVisible = false,
     this.errorMessage = '',
     this.accounts,
-    this.selectedCurrencyIndex = 0,
+    this.selectedCurrencyIndexes,
     this.lastTransactions = const [],
   });
 
@@ -23,7 +23,7 @@ class DashboardState extends Equatable {
     String? errorMessage,
     AccountsEntity? accounts,
     CurrencyBalanceEntity? selectedCurrency,
-    int? selectedCurrencyIndex,
+    List<int>? selectedCurrencyIndexes,
     List<TransactionModel>? lastTransactions,
   }) {
     return DashboardState(
@@ -31,8 +31,8 @@ class DashboardState extends Equatable {
       isBalanceVisible: isBalanceVisible ?? this.isBalanceVisible,
       errorMessage: errorMessage ?? this.errorMessage,
       accounts: accounts ?? this.accounts,
-      selectedCurrencyIndex:
-          selectedCurrencyIndex ?? this.selectedCurrencyIndex,
+      selectedCurrencyIndexes:
+          selectedCurrencyIndexes ?? this.selectedCurrencyIndexes,
       lastTransactions: lastTransactions ?? this.lastTransactions,
     );
   }
@@ -43,7 +43,7 @@ class DashboardState extends Equatable {
     isBalanceVisible,
     errorMessage,
     accounts,
-    selectedCurrencyIndex,
+    selectedCurrencyIndexes,
     lastTransactions,
   ];
 }

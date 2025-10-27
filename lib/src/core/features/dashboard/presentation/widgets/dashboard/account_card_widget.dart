@@ -16,11 +16,13 @@ import 'package:smart_digital_wallet/src/core/features/dashboard/presentation/bl
 class AccountCardWidget extends StatelessWidget {
   final AccountEntity account;
   final double height;
+  final int accountIndex;
 
   const AccountCardWidget({
     super.key,
     required this.account,
     required this.height,
+    required this.accountIndex,
   });
 
   @override
@@ -83,21 +85,23 @@ class AccountCardWidget extends StatelessWidget {
                                 (entry) =>
                                     BlocBuilder<DashboardBloc, DashboardState>(
                                       buildWhen: (previous, current) =>
-                                          previous.selectedCurrencyIndex !=
-                                          current.selectedCurrencyIndex,
+                                          previous.selectedCurrencyIndexes !=
+                                          current.selectedCurrencyIndexes,
                                       builder: (context, state) {
+                                        final index = state.selectedCurrencyIndexes![accountIndex];
                                         return ChipWidget(
                                           onTap: () {
                                             context.read<DashboardBloc>().add(
                                               ToggleSelectedCurrencyEvent(
                                                 index: entry.key,
+                                                accountIndex: accountIndex,
                                               ),
                                             );
                                           },
                                           currency:
                                               entry.value.currency.currency,
                                           isSelected:
-                                              state.selectedCurrencyIndex ==
+                                              index==
                                               entry.key,
                                         );
                                       },
@@ -167,14 +171,14 @@ class AccountCardWidget extends StatelessWidget {
                         Expanded(
                           child: BlocBuilder<DashboardBloc, DashboardState>(
                             buildWhen: (previous, current) =>
-                                previous.selectedCurrencyIndex !=
-                                    current.selectedCurrencyIndex ||
+                                previous.selectedCurrencyIndexes !=
+                                    current.selectedCurrencyIndexes ||
                                 previous.isBalanceVisible !=
                                     current.isBalanceVisible,
                             builder: (context, state) {
                               final currency =
                                   account.currencyBalances![state
-                                      .selectedCurrencyIndex];
+                                      .selectedCurrencyIndexes![accountIndex]!];
 
                               String? balance = currency.balance.toString();
                               if (!state.isBalanceVisible) {

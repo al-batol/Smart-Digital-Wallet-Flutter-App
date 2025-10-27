@@ -84,6 +84,7 @@ class _AccountCardsCarouselWidgetState
                     right: AppDimensions.paddingLg.width(context),
                     child: AccountCardWidget(
                       account: widget.accounts[index],
+                      accountIndex: index,
                       height: widget.height,
                     ),
                   ),

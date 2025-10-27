@@ -39,7 +39,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             accounts: user,
             isLoading: false,
             errorMessage: '',
-            selectedCurrency: user.accounts.first.currencyBalances?.first,
+            selectedCurrencyIndexes: user.accounts.first.currencyBalances
+                ?.map((e) => 0)
+                .toList(),
           ),
         );
       },
@@ -50,7 +52,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     ToggleSelectedCurrencyEvent event,
     Emitter<DashboardState> emit,
   ) {
-    emit(state.copyWith(selectedCurrencyIndex: event.index));
+    final selectedCurrencyIndexes = List<int>.from(state.selectedCurrencyIndexes ?? []);
+    selectedCurrencyIndexes[event.accountIndex] = event.index;
+    emit(state.copyWith(selectedCurrencyIndexes: selectedCurrencyIndexes));
   }
 
   void _onToggleBalanceVisibilityEventHandler(
