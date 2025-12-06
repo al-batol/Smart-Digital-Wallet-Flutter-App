@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_digital_wallet/src/core/common/constants/app_constants.dart';
 import 'package:smart_digital_wallet/src/core/common/di/injection_container.dart';
 import 'package:smart_digital_wallet/src/core/common/routes/app_route_names.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/presentation/views/signin_view.dart';
@@ -15,10 +17,15 @@ import 'package:smart_digital_wallet/src/core/features/pay_bill/presentation/blo
 import 'package:smart_digital_wallet/src/core/features/pay_bill/presentation/views/pay_bill_view.dart';
 import 'package:smart_digital_wallet/src/core/features/currency_exchange/presentation/blocs/bloc/currency_exchange_bloc.dart';
 import 'package:smart_digital_wallet/src/core/features/currency_exchange/presentation/views/currency_exchange_view.dart';
+import 'package:smart_digital_wallet/src/core/features/splash/presentation/views/splash_view.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
   routes: [
+    GoRoute(
+      path: splashRoute,
+      builder: (context, state) => const SplashView(),
+    ),
     GoRoute(path: signInRoute, builder: (context, state) => const SignInView()),
     GoRoute(
       path: starterRoute,
@@ -72,7 +79,6 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final extra = state.extra as Map<String, dynamic>?;
         final accounts = extra?['accounts'] as List? ?? [];
-        print(accounts);
 
         return BlocProvider(
           create: (context) => sl<CurrencyExchangeBloc>(),
@@ -82,8 +88,8 @@ final GoRouter appRouter = GoRouter(
     ),
   ],
   redirect: (context, state) {
-    if (state.uri.path == '/' || state.uri.path == starterRoute) {
-      return starterRoute;
+    if (state.uri.path == '/') {
+      return splashRoute;
     }
     return null;
   },

@@ -5,3 +5,4 @@ const String topUpRoute = '/top-up';
 const String sendMoneyRoute = '/send-money';
 const String payBillRoute = '/pay-bill';
 const String currencyExchangeRoute = '/currency-exchange';
+const String splashRoute = '/splash';

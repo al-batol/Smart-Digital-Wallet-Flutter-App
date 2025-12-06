@@ -87,7 +87,7 @@ class _SignInViewState extends State<SignInView> {
                 ),
               );
             if (context.mounted) {
-              context.pushReplacement(dashboardRoute);
+              context.go(dashboardRoute);
             }
           }
         },

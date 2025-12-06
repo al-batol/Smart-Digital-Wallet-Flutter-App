@@ -16,7 +16,7 @@ class BiometricService {
     bool isAuthenticated = false;
     try {
       isAuthenticated = await _localAuth.authenticate(
-        localizedReason: biometricAuthReason,
+        localizedReason: context.translate(biometricAuthReason),
         persistAcrossBackgrounding: true,
         authMessages: <AuthMessages>[
           AndroidAuthMessages(

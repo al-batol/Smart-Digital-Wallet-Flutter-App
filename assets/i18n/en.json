@@ -5,7 +5,6 @@
   "get_started": "Get Started",
   "dont_have_account": "Don't have an account?",
   "contact_us": "Contact Us",
-  
   "sign_in": "Sign In",
   "enter_your_email": "Enter Your Email",
   "email": "Email",
@@ -17,11 +16,9 @@
   "password_placeholder": "At least 8 characters",
   "password_required": "Password is required",
   "invalid_password": "Invalid password",
-  
   "error": "Error!",
   "success": "Success!",
   "logged_in_successfully": "Logged in successfully",
-  
   "hello": "Hello",
   "services": "Services",
   "top_up": "Top Up",
@@ -38,7 +35,6 @@
   "bill_type": "Bill Type",
   "bill_number": "Bill Number",
   "transaction_id": "Transaction ID",
-  
   "select_account": "Select Account",
   "choose_account_to_add_money": "Choose which account to add money",
   "choose_account_to_send_from": "Choose which account to send from",
@@ -54,7 +50,6 @@
   "insufficient_balance_max": "Insufficient balance. Max",
   "confirm_top_up": "Confirm Top Up",
   "amount_placeholder": "0.00",
-  
   "loading_beneficiaries": "Loading beneficiaries...",
   "enter_card_id": "Enter Card ID",
   "beneficiaries": "Beneficiaries",
@@ -66,18 +61,14 @@
   "choose_who_to_send_money": "Choose who to send money to",
   "no_beneficiaries_found": "No beneficiaries found",
   "confirm_send_money": "Confirm Send Money",
-  
   "select_bill_type": "Select Bill Type",
   "choose_bill_to_pay": "Choose the bill you want to pay",
   "enter_bill_number_placeholder": "Enter your bill number",
   "enter_bill_number": "Please enter bill number",
-  
   "check_internet_connection": "Check your internet connection",
   "invalid_email_or_password": "Invalid email or password",
-  
   "water_bill": "Water bill",
   "electricity_bill": "Electricity bill",
-
   "select_provider": "Select Provider",
   "selected_provider": "Selected Provider",
   "choose_provider": "Choose your mobile provider",
@@ -85,21 +76,18 @@
   "enter_phone_number_placeholder": "Enter phone number",
   "enter_phone_number": "Please enter phone number",
   "valid_phone_number": "Please enter a valid phone number",
-  
   "yemen_mobile": "Yemen Mobile",
   "sabafon": "Sabafon",
   "you": "You",
-  
   "biometric_auth_reason": "Please authenticate to access our services",
   "biometric_sign_in_title": "Sign in",
   "biometric_sign_in_hint": "Use your biometric to authenticate",
   "biometric_cancel_button": "Cancel",
   "biometric_auth_failed": "Biometric authentication failed",
-  
   "currency_exchange": "Currency Exchange",
   "confirm_currency_exchange": "Confirm Exchange",
   "from_account": "From Account",
-  "to_account": "To Account", 
+  "to_account": "To Account",
   "from_currency": "From Currency",
   "to_currency": "To Currency",
   "converted_amount": "Converted Amount",
@@ -111,6 +99,7 @@
   "you_will_receive": "You will receive",
   "exchange_not_allowed": "This currency exchange is not allowed",
   "no_accounts_available": "No accounts available",
-  "recieved": "Recieved"
+  "recieved": "Recieved",
+  "smart_digital_wallet": "Smart Digital Wallet",
+  "version": "v1.0.0"
 }
-

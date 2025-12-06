@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /Users/al-batol/Desktop/flutter_projects/smart_digital_wallet/lib/src/core/features/splash/presentation/{views,widgets})",
+      "Bash(flutter analyze lib/src/core/features/splash)",
+      "Bash(tree /Users/al-batol/Desktop/flutter_projects/smart_digital_wallet/lib/src/core/features/splash -I '__pycache__|*.pyc')",
+      "Bash(flutter clean)",
+      "Bash(flutter pub get)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

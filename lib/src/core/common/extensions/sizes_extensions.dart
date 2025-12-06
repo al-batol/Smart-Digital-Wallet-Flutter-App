@@ -49,7 +49,7 @@ extension ResponsiveDoubleExtension on double {
   }
 }
 
-extension ResponsiveIntExtension on int {
+extension ResponsiveIntExtension on num {
   double spacing(BuildContext context) => toDouble().spacing(context);
   double fontSize(BuildContext context) => toDouble().fontSize(context);
   double height(BuildContext context) => toDouble().height(context);

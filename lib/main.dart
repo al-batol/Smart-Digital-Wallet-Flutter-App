@@ -44,7 +44,10 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp.router(
             title: 'Smart Digital Wallet',
-            theme: ThemeData(useMaterial3: true),
+            theme: ThemeData(
+              useMaterial3: true,
+              scaffoldBackgroundColor: Colors.white,
+            ),
             debugShowCheckedModeBanner: false,
             supportedLocales: AppLocalization.supportedLanguages,
             locale: state.locale,

@@ -19,3 +19,19 @@ const String sendMoneyImg = "assets/icons/send_money.svg";
 const String topUpImg = "assets/icons/top_up.svg";
 const String biometricImg = "assets/icons/biometric.svg";
 const String currencyExchangeImg = "assets/icons/currency_exchange.svg";
+const String appLogoImg = "assets/images/app_logo.png";
+
+const List<String> svgAssets = [
+  starterImg,
+  sunImg,
+  securityImg,
+  eyeOffImg,
+  eyeOnImg,
+  shadowCircleImg,
+  // loadingGif,
+  payBillImg,
+  sendMoneyImg,
+  topUpImg,
+  biometricImg,
+  currencyExchangeImg,
+];
