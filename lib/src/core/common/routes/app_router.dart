@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_digital_wallet/src/core/common/constants/app_constants.dart';
 import 'package:smart_digital_wallet/src/core/common/di/injection_container.dart';
 import 'package:smart_digital_wallet/src/core/common/routes/app_route_names.dart';
 import 'package:smart_digital_wallet/src/core/features/auth/presentation/views/signin_view.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_digital_wallet/src/core/common/constants/app_dimensions.dart';
 import 'package:smart_digital_wallet/src/core/common/extensions/sizes_extensions.dart';
-import 'package:smart_digital_wallet/src/core/common/localization/localization_service.dart';
 
 class SplashLoadingWidget extends StatelessWidget {
   final Animation<double> animation;
@@ -10,8 +9,6 @@ class SplashLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return AnimatedBuilder(
       animation: animation,
       builder: (context, child) {

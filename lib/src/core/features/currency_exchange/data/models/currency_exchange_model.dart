@@ -28,6 +28,7 @@ class CurrencyExchangeModel extends TransactionModel {
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'fromAccountId': fromAccountId,

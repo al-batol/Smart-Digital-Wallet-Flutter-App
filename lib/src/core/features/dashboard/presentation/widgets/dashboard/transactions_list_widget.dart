@@ -51,7 +51,7 @@ class TransactionsListWidget extends StatelessWidget {
                   (transaction) =>
                       TransactionItemWidget(transaction: transaction),
                 )
-                .toList(),
+                ,
             SizedBox(height: AppDimensions.spacingLg.height(context)),
           ],
         );
